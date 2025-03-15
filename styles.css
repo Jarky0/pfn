@@ -1,4 +1,39 @@
-/* Base Styles */
+.start-game-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 15px 0;
+}
+
+#start-game-btn {
+    background-color: var(--success-color);
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    width: 80%;
+    max-width: 250px;
+    box-shadow: 0 3px 0 #1e8449, 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+#start-game-btn:hover, #start-game-btn:focus {
+    background-color: #2ecc71;
+    transform: translateY(-2px);
+}
+
+#start-game-btn:active {
+    box-shadow: 0 1px 0 #1e8449;
+    transform: translateY(1px);
+}
+
+@media (min-width: 768px) {
+    .start-game-container {
+        grid-column: 1 / span 2;
+        margin-top: 20px;
+    }
+    
+    #start-game-btn {
+        font-size: 1.2rem;
+        padding: 12px 30px;
+    }
+}/* Base Styles */
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
@@ -25,12 +60,8 @@
     transition: var(--transition);
     margin: 0;
     padding: 0;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation; /* Verhindert Doppeltipp-Zoom */
 }
 
 /* Verbesserte Touch-Kontrolle für interaktive Elemente */
@@ -436,49 +467,12 @@ button {
     padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
+    transition: all 0.25s;
     box-shadow: 0 2px 0 #1c6ea4, 0 2px 4px rgba(0, 0, 0, 0.15);
     position: relative;
     top: 0;
     font-weight: 600;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-}
-
-/* Komplett deaktiviere alle Hover-, Focus- und Active-Styles auf Mobilgeräten */
-@media (pointer: coarse) {
-    button, 
-    button:hover, 
-    button:focus, 
-    button:active {
-        background-color: var(--secondary-color);
-        box-shadow: 0 2px 0 #1c6ea4, 0 2px 4px rgba(0, 0, 0, 0.15);
-        outline: none !important;
-        -webkit-tap-highlight-color: transparent !important;
-    }
-    
-    .btn-success,
-    .btn-success:hover,
-    .btn-success:focus,
-    .btn-success:active {
-        background-color: var(--success-color);
-        box-shadow: 0 2px 0 #1e8449, 0 2px 4px rgba(0, 0, 0, 0.15);
-    }
-    
-    .btn-skip,
-    .btn-skip:hover,
-    .btn-skip:focus,
-    .btn-skip:active {
-        background-color: var(--accent-color);
-        box-shadow: 0 2px 0 #c0392b, 0 2px 4px rgba(0, 0, 0, 0.15);
-    }
-    
-    button:disabled {
-        background-color: #95a5a6;
-        box-shadow: 0 2px 0 #7f8c8d;
-        cursor: not-allowed;
-        opacity: 0.8;
-    }
 }
 
 #end-round-btn, #start-round-btn {
@@ -851,6 +845,16 @@ input[type="file"] {
     to { transform: translateY(0); }
 }
 
+/* Gesture hint */
+.gesture-hint {
+    margin-top: 8px;
+    color: #7f8c8d;
+    font-size: 0.75rem;
+    background-color: rgba(127, 140, 141, 0.1);
+    padding: 6px;
+    border-radius: 6px;
+}
+
 /* NoScript message */
 .noscript-message {
     position: fixed;
@@ -1097,7 +1101,12 @@ input[type="file"] {
         grid-row: 3;
         width: 100%;
     }
-
+    
+    .gesture-hint {
+        grid-column: 1 / span 2;
+        grid-row: 4;
+    }
+    
     /* Größere Karte und Schrift */
     .card-table {
         height: 280px;
@@ -1229,44 +1238,6 @@ input[type="file"] {
 
 .game-options {
     margin-bottom: 5px;
-}
-
-/* Start Game Button Styles */
-.start-game-container {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 15px 0;
-}
-
-#start-game-btn {
-    background-color: var(--success-color);
-    font-size: 1.1rem;
-    padding: 10px 25px;
-    width: 80%;
-    max-width: 250px;
-    box-shadow: 0 3px 0 #1e8449, 0 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-#start-game-btn:hover, #start-game-btn:focus {
-    background-color: #2ecc71;
-    transform: translateY(-2px);
-}
-
-#start-game-btn:active {
-    box-shadow: 0 1px 0 #1e8449;
-    transform: translateY(1px);
-}
-
-@media (min-width: 768px) {
-    .start-game-container {
-        grid-column: 1 / span 2;
-        margin-top: 20px;
-    }
-    
-    #start-game-btn {
-        font-size: 1.2rem;
-        padding: 12px 30px;
-    }
 }
 
 /* Updated scoreboard for multiple teams */

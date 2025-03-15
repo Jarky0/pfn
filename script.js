@@ -225,8 +225,98 @@ function updateTeamButtonsState(teamCount) {
     }
 }
 
-// Entferne nicht benötigte Swipe-Funktionen und Wake-Lock
-// (Vom Benutzer als nicht benötigt gekennzeichnet)
+/**
+ * Add swipe gesture support for card interactions
+ */
+function addSwipeSupport() {
+    const activeCard = document.getElementById("active-card");
+    if (!activeCard) return;
+    
+    let startX, startY;
+    const threshold = 50; // Minimum distance for a swipe
+    
+    // Add touch event listeners to the card
+    activeCard.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    activeCard.addEventListener('touchend', (e) => {
+        if (!startX || !startY) return;
+        
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+        
+        // Check if it's a horizontal swipe (more horizontal than vertical)
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > threshold) {
+            const buttonId = diffX > 0 ? "skip-btn" : "point-btn";
+            const button = document.getElementById(buttonId);
+            if (button) button.click();
+        } 
+        // Check if it's a vertical swipe
+        else if (Math.abs(diffY) > threshold && diffY > 0) {
+            // Swipe up - Compound word
+            const compoundBtn = document.getElementById("compound-btn");
+            if (compoundBtn) compoundBtn.click();
+        }
+        
+        // Reset start values
+        startX = null;
+        startY = null;
+    }, { passive: true });
+}
+
+/**
+ * Add screen wake lock support if available in the browser
+ */
+function addWakeLockSupport() {
+    // Check if the Wake Lock API is supported
+    if ('wakeLock' in navigator) {
+        let wakeLock = null;
+        
+        // Function to request a wake lock
+        const requestWakeLock = async () => {
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock activated');
+                
+                // Listen for page visibility changes
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+            } catch (err) {
+                console.log(`Wake Lock could not be activated: ${err.message}`);
+            }
+        };
+        
+        // Function to handle visibility changes
+        const handleVisibilityChange = async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                // Re-request wake lock when page becomes visible again
+                wakeLock = await navigator.wakeLock.request('screen');
+            }
+        };
+        
+        // Add event listeners for game start/end to manage wake lock
+        const startGameBtn = document.getElementById("start-game-btn");
+        const newGameBtn = document.getElementById("new-game-btn");
+        
+        if (startGameBtn) {
+            startGameBtn.addEventListener('click', requestWakeLock);
+        }
+        
+        if (newGameBtn) {
+            newGameBtn.addEventListener('click', () => {
+                if (wakeLock !== null) {
+                    wakeLock.release();
+                    wakeLock = null;
+                    console.log('Wake Lock deactivated');
+                }
+            });
+        }
+    }
+}
 
 /**
  * Setup offline detection
@@ -321,11 +411,6 @@ window.addEventListener('load', () => {
     
     // Initialize game
     initializeGame();
-    
-    // Manuelle Deaktivierung des Buttons-Fokus bei jedem Touch auf dem Dokument
-    document.addEventListener('touchstart', function() {
-        document.activeElement.blur();
-    }, false);
 });
 
 /**
