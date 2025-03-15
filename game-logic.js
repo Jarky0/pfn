@@ -502,13 +502,6 @@ class GameLogic {
         // Update score display
         this.updateScoreDisplay();
         
-        // Entferne Fokus von allen Buttons (fix für Mobilgeräte)
-        if (document.activeElement) document.activeElement.blur();
-        setTimeout(() => {
-            // Noch einmal nach kurzer Verzögerung, um sicherzustellen
-            if (document.activeElement) document.activeElement.blur();
-        }, 50);
-        
         // Check if the target score has been reached, but don't set gameOver yet
         if (!this.gameState.targetScoreReached && this.checkTargetScoreReached()) {
             this.gameState.targetScoreReached = true;
