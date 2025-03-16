@@ -742,33 +742,33 @@ label {
 }
 
 /* Instructions and examples */
-.instructions,
-.disclaimer {
+.instructions {
   text-align: left;
   background-color: #f9f9f9;
-  padding: 8px;
+  padding: 6px;
   border-radius: var(--button-radius);
-  margin-bottom: 8px;
-  font-size: 0.8rem;
-}
-
-.instructions {
+  margin-bottom: 6px;
+  font-size: 0.75rem;
   border-left: 3px solid var(--secondary-color);
+  max-height: none; /* Remove any height restriction */
+  overflow-y: visible; /* Ensure content is fully visible */
 }
 
 .instructions h3 {
   margin-top: 0;
+  margin-bottom: 4px;
   color: var(--primary-color);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .instructions ul {
   padding-left: 15px;
-  margin: 5px 0;
+  margin: 3px 0;
 }
 
 .instructions li {
-  margin-bottom: 2px;
+  margin-bottom: 1px;
+  line-height: 1.3;
   position: relative;
 }
 
@@ -797,6 +797,11 @@ label {
   border-left: 4px solid var(--accent-color);
   line-height: 1.4;
   color: #333333;
+  text-align: left;
+  padding: 8px;
+  border-radius: var(--button-radius);
+  margin-bottom: 8px;
+  font-size: 0.8rem;
 }
 
 .disclaimer p {
@@ -997,9 +1002,25 @@ label {
 /* Media Queries - consolidated */
 @media (max-height: 600px) {
   .instructions {
-    max-height: 120px;
-    overflow-y: auto;
+    max-height: none; /* Override the previous max-height */
+    overflow-y: visible;
+    padding: 5px;
+    font-size: 0.7rem;
   }
+  
+  .instructions h3 {
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+  }
+  
+  .instructions ul {
+    margin: 2px 0;
+  }
+  
+  .instructions li {
+    margin-bottom: 0;
+  }
+  
   h1 {
     font-size: clamp(1rem, 3.5vw, 1.5rem);
     margin-top: 2px;
