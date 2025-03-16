@@ -24,7 +24,7 @@ Primitive Formulierungen für Neudenker ist ein unterhaltsames Gruppenspiel, bei
 1. Repository klonen:
 
    ```
-   git clone https://github.com/username/primitive-formulierungen.git
+   git clone https://github.com/Jarky0/pfn.git
    ```
 
 2. `index.html` in einem modernen Webbrowser öffnen oder auf einem Webserver bereitstellen.
