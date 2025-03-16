@@ -220,9 +220,7 @@ Baumstamm; Stamm
 Bausparkasse; Kasse
 Baumwolle; Wolle
 Beerengarten; Garten
-Bergsteig; Steig
 Bergsee; See
-Betthaupt; Haupt
 Bierglas; Glas
 Bienenstock; Stock
 Blattrand; Rand
@@ -405,7 +403,6 @@ Damenkleider; Kleider
 Datenbank; Bank
 Deichselwagen; Wagen
 Deltaflugzeug; Flugzeug
-Denkmal; Mal
 Dachsparren; Sparren
 Dachterrasse; Terrasse
 Damenrock; Rock
@@ -1756,9 +1753,7 @@ Sandkorn; Korn
 Sandstein; Stein
 Sandstrand; Strand
 Sandstrahlgebläse; Gebläse
-Sandwiches; Wiches
 Sanduhr; Uhr
-Sanftmut; Mut
 Sanitäranlage; Anlage
 Sanitätshaus; Haus
 Sauerstoff; Stoff
@@ -1822,7 +1817,6 @@ Schimpfwort; Wort
 Schirmherr; Herr
 Schlafanzug; Anzug
 Schlaffheit; Heit
-Schlaflosigkeit; Losigkeit
 Schlafmittel; Mittel
 Schlafraum; Raum
 Schlafrhythmus; Rhythmus
@@ -1926,7 +1920,6 @@ Schreibmaschine; Maschine
 Schreibtisch; Tisch
 Schreibwaren; Waren
 Schreibweise; Weise
-Schreiner; Einer
 Schriftbild; Bild
 Schriftführer; Führer
 Schriftgröße; Größe
@@ -1963,7 +1956,6 @@ Schulweg; Weg
 Schulzeit; Zeit
 Schulzimmer; Zimmer
 Schulzeugnis; Zeugnis
-Schuppen; Uppen
 Schuppentier; Tier
 Schürzenjäger; Jäger
 Schusswaffe; Waffe
@@ -2046,7 +2038,6 @@ Tafelwein; Wein
 Talfahrt; Fahrt
 Talkessel; Kessel
 Talsperre; Sperre
-Tambourin; Bourin
 Tandemfahrt; Fahrt
 Tandempartner; Partner
 Tandemsprung; Sprung
@@ -2065,7 +2056,6 @@ Tanzfläche; Fläche
 Tanzgruppe; Gruppe
 Tanzkurs; Kurs
 Tanzlokal; Lokal
-Tanzmariechen; Mariechen
 Tanzschule; Schule
 Tanzstunde; Stunde
 Tapetenkleister; Kleister
@@ -2081,7 +2071,6 @@ Tastenfeld; Feld
 Tasteninstrument; Instrument
 Tatsachenbericht; Bericht
 Tattergreis; Greis
-Tattersall; Sall
 Tatzendruck; Druck
 Taubenschlag; Schlag
 Taubheit; Heit
@@ -2279,7 +2268,6 @@ Tropenzone; Zone
 Tropfhöhle; Höhle
 Tropfstein; Stein
 Troststimme; Stimme
-Trubel; Rubel
 Trugbild; Bild
 Truggold; Gold
 Trugschluss; Schluss
@@ -2347,11 +2335,9 @@ Unternehmensführung; Führung
 Unterrichtsraum; Raum
 Unterrichtsstunde; Stunde
 Unterschenkel; Schenkel
-Unterschied; Schied
 Unterschlupf; Schlupf
 Unterschrift; Schrift
 Untertasse; Tasse
-Untertan; Tan
 Untersuchungshaft; Haft
 Unterwäsche; Wäsche
 Unterwelt; Welt
@@ -2894,7 +2880,6 @@ Zentralschloss; Schloss
 Zentralverwaltung; Verwaltung
 Zentrifugalkraft; Kraft
 Zepterträger; Träger
-Zerbrechlichkeit; Lichkeit
 Zerstörungskraft; Kraft
 Zerstörungswut; Wut
 Zettelkasten; Kasten
@@ -2902,7 +2887,6 @@ Zeugenaussage; Aussage
 Zeugnisnote; Note
 Zickzackkurs; Kurs
 Zickzacklinie; Linie
-Ziegelei; Elei
 Ziegelstein; Stein
 Ziegenmilch; Milch
 Zieharmonika; Harmonika
@@ -2986,7 +2970,6 @@ Zufluchtsort; Ort
 Zugabfahrt; Abfahrt
 Zugankunft; Ankunft
 Zugbegleiter; Begleiter
-Zugehörigkeit; Hörigkeit
 Zugfahrt; Fahrt
 Zugführer; Führer
 Zugkraft; Kraft
@@ -3061,7 +3044,6 @@ Zwillingsmotor; Motor
 Zwillingsreifen; Reifen
 Zwillingsschwester; Schwester
 Zwillingsstudie; Studie
-Zwingmauer; Mauer
 Zwirbelbart; Bart
 Zwischenablage; Ablage
 Zwischendecke; Decke

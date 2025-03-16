@@ -291,7 +291,7 @@ class GameLogic {
         if (!this.currentTeamDisplay) return;
         
         const currentTeam = this.gameState.teams[this.gameState.currentTeamIndex];
-        let teamText = `${currentTeam.name} is next`;
+        let teamText = `${currentTeam.name} ist dran`;
         
         // Show hint for last attempt
         if (this.gameState.targetScoreReached && 
