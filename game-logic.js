@@ -30,9 +30,8 @@ class GameLogic {
       targetScore: 20,
       timer: null,
       timeLeft: 60,
-      currentWordIndex: 0,
-      wordPairs: [],
-      usedWordIndices: [],
+      currentWordPair: null,
+      usedWordPairs: [],
       roundActive: false,
       gameOver: false,
       targetScoreReached: false,
@@ -130,27 +129,8 @@ class GameLogic {
   initGame() {
     console.log("Initialisiere Spiel");
 
-    // Try to use wordLoader if available
-    try {
-      if (
-        typeof wordLoader !== "undefined" &&
-        wordLoader &&
-        wordLoader.getWordPairs
-      ) {
-        this.gameState.wordPairs = wordLoader.getWordPairs();
-        console.log(`${this.gameState.wordPairs.length} Wortpaare geladen`);
-      }
-    } catch (e) {
-      console.log("wordLoader nicht gefunden, verwende Standardwörter");
-    }
-
-    // If no words were loaded, use default words
-    if (!this.gameState.wordPairs || this.gameState.wordPairs.length === 0) {
-      this.gameState.wordPairs = this.defaultWords;
-      console.log(
-        `${this.gameState.wordPairs.length} Standardwörter verwendet`
-      );
-    }
+    // Reset used word pairs
+    this.gameState.usedWordPairs = [];
 
     // Get teams from team chips
     const teamChips = document.querySelectorAll(".team-chip");
@@ -199,7 +179,6 @@ class GameLogic {
     // Reset game state
     this.gameState.currentTeamIndex = 0;
     this.gameState.timeLeft = this.gameState.roundTime;
-    this.gameState.usedWordIndices = [];
     this.gameState.roundActive = false;
     this.gameState.gameOver = false;
     this.gameState.targetScoreReached = false;
@@ -348,38 +327,70 @@ class GameLogic {
   }
 
   /**
-   * Select a new random word from the word pairs
+   * Select a new random word from wordLoader
    */
   selectNewWord() {
-    let availableIndices = [];
-
-    // Find indices that haven't been used yet
-    for (let i = 0; i < this.gameState.wordPairs.length; i++) {
-      if (!this.gameState.usedWordIndices.includes(i)) {
-        availableIndices.push(i);
+    // Check if wordLoader is available and has words
+    if (window.wordLoader && window.wordLoader.hasWords()) {
+      let newWordPair = null;
+      let attempts = 0;
+      const maxAttempts = 100; // Limit attempts to prevent infinite loop
+      
+      // Try to get a word that hasn't been used in this game session
+      while (attempts < maxAttempts) {
+        newWordPair = window.wordLoader.getRandomWordPair();
+        
+        // If no word was returned or we've exhausted all possible words, exit loop
+        if (!newWordPair || this.gameState.usedWordPairs.length >= window.wordLoader.getWordCounts().total) {
+          break;
+        }
+        
+        // Check if this word has already been used this session
+        const isUsed = this.gameState.usedWordPairs.some(
+          usedPair => 
+            usedPair.compound === newWordPair.compound && 
+            usedPair.simple === newWordPair.simple
+        );
+        
+        if (!isUsed) {
+          // Found a new word, break out of loop
+          break;
+        }
+        
+        attempts++;
       }
+      
+      // If we couldn't find a new word or no words are available, reset used words
+      if (!newWordPair || attempts >= maxAttempts) {
+        console.log("Alle Wörter verwendet, setze zurück");
+        this.gameState.usedWordPairs = [];
+        newWordPair = window.wordLoader.getRandomWordPair();
+      }
+      
+      // If we still don't have a word, use fallback
+      if (!newWordPair) {
+        console.log("Kein Wort gefunden, verwende Fallback-Wörter");
+        const randomIndex = Math.floor(Math.random() * this.defaultWords.length);
+        newWordPair = this.defaultWords[randomIndex];
+      }
+      
+      // Store the current word
+      this.gameState.currentWordPair = newWordPair;
+      
+      // Add to used words
+      this.gameState.usedWordPairs.push(newWordPair);
+    } else {
+      // Fallback to default words if wordLoader is not available
+      console.log("Kein wordLoader gefunden, verwende Fallback-Wörter");
+      const randomIndex = Math.floor(Math.random() * this.defaultWords.length);
+      this.gameState.currentWordPair = this.defaultWords[randomIndex];
     }
-
-    // If all words have been used, reset the used indices
-    if (availableIndices.length === 0) {
-      this.gameState.usedWordIndices = [];
-      availableIndices = Array.from(
-        { length: this.gameState.wordPairs.length },
-        (_, i) => i
-      );
-    }
-
-    // Select a random word
-    const randomIndex = Math.floor(Math.random() * availableIndices.length);
-    const wordIndex = availableIndices[randomIndex];
-    this.gameState.currentWordIndex = wordIndex;
-    this.gameState.usedWordIndices.push(wordIndex);
 
     // Show the card
     this.uiEffects.showCard();
 
     // Display the word with animation
-    const wordPair = this.gameState.wordPairs[wordIndex];
+    const wordPair = this.gameState.currentWordPair;
     this.uiEffects.animateText(
       document.getElementById("word"),
       wordPair.simple
@@ -678,6 +689,7 @@ class GameLogic {
     this.gameState.roundActive = false;
     this.gameState.targetScoreReached = false;
     this.gameState.targetReachedByTeam = -1;
+    this.gameState.usedWordPairs = [];
 
     // Reset button states
     if (this.startRoundBtn) {

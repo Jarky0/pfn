@@ -21,7 +21,8 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <!-- iPhone optimization -->
+    <!-- Mobile web app optimization -->
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -79,6 +80,25 @@
           📄 Datei auswählen
         </label>
         <div id="file-status" class="status-message"></div>
+        
+        <div id="list-info-display" class="list-info-display"></div>
+        
+        <!-- Word list probability controls -->
+        <div class="word-list-prob hide">
+          <h4>🎲 Wahrscheinlichkeit für Wortquellen</h4>
+          <div class="prob-container">
+            <input 
+              type="range" 
+              id="word-probability" 
+              min="0" 
+              max="100" 
+              value="50" 
+              class="prob-slider" 
+            />
+            <div id="percentage-display" class="percentage-display">50% Standard / 50% Eigene</div>
+          </div>
+          <p class="prob-note">Bestimmt für jedes gezogene Wort, mit welcher Wahrscheinlichkeit es aus der Standard- oder eigenen Wortliste stammt.</p>
+        </div>
       </div>
 
       <div class="game-setup">
