@@ -1,6 +1,6 @@
 # Primitive Formulierungen für Neudenker (PfN)
 
-Eine mobile Web-App für das Wortspiel mit Einsilber-Herausforderung.
+Eine mobile Web-App für das Wortspiel mit Einsilbiger-Herausforderung.
 
 ## Disclaimer
 
