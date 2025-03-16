@@ -565,26 +565,15 @@ class GameLogic {
    * @returns {boolean} True if the game should end
    */
   shouldEndGame() {
-    // The game is over when:
-
-    // 1. The target score has not been reached
+    // If the target score has not been reached, the game should not end
     if (!this.gameState.targetScoreReached) {
       return false;
     }
 
-    // Special case: The team that just reached the target score is the last team in the rotation
-    if (
-      this.gameState.targetReachedByTeam === this.gameState.currentTeamIndex &&
-      this.gameState.currentTeamIndex === this.gameState.teams.length - 1
-    ) {
-      return true; // Game ends immediately
-    }
-
-    // Normal case: Every team gets a chance after the target score is reached
-    // The game ends when the current team is the team before the team that first reached the target score
-    const nextTeamIndex =
-      (this.gameState.currentTeamIndex + 1) % this.gameState.teams.length;
-    return nextTeamIndex === this.gameState.targetReachedByTeam;
+    // The game should end if:
+    // 1. The target score has been reached
+    // 2. AND we've finished the round of the last team (the team with the highest index)
+    return this.gameState.currentTeamIndex === this.gameState.teams.length - 1;
   }
 
   /**
