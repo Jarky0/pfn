@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="de" xml:lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Primitive Formulierungen für Neudenker</title>
+    <meta
+      name="description"
+      content="Ein Wortspiel, bei dem nur einsilbige Wörter verwendet werden dürfen"
+    />
+    <meta name="theme-color" content="#2c3e50" />
+
+    <!-- Cache control -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- iPhone optimization -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+
+    <!-- iPhone 15 Plus Splash Screen -->
+    <link
+      rel="apple-touch-startup-image"
+      href="icons/splash-1284x2778.png"
+      media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)"
+    />
+
+    <!-- Stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>
+      <span class="title-text">Primitive Formulierungen für Neudenker</span>
+    </h1>
+
+    <div id="main-menu" class="game-container">
+      <!-- Disclaimer added -->
+
+      <div class="instructions">
+        <h3>📖 Spielregeln:</h3>
+        <ul>
+          <li>Reicht das Handy in der Gruppe herum</li>
+          <li>Erkläre das angezeigte Wort, ohne es zu benutzen</li>
+          <li>Benutze nur ein-silbige Wörter!</li>
+          <li>Bei Verstoß: Karte überspringen (-1)</li>
+          <li>Einfache Wörter: 1 Punkt</li>
+          <li>Zusammengesetzte Wörter: 3 Punkte</li>
+          <li>Überspringen: -1 Punkt</li>
+        </ul>
+      </div>
+
+      <div class="file-input">
+        <h3>📤 Wortliste hochladen</h3>
+        <p>Format: "Zusammengesetztes Wort; Einfaches Wort"</p>
+        <div class="example-format">
+          Zwiebelsuppe; Suppe<br />
+          Zwillingsbruder; Bruder
+        </div>
+        <label class="custom-file-upload">
+          <input type="file" id="wordlist-file" accept=".txt" />
+          📄 Datei auswählen
+        </label>
+        <div id="file-status" class="status-message"></div>
+      </div>
+
+      <div class="game-setup">
+        <div class="game-options">
+          <div class="options-row">
+            <div class="input-group">
+              <label for="round-time">⏱️ Zeit (Sek.)</label>
+              <input
+                type="number"
+                id="round-time"
+                min="10"
+                max="300"
+                value="60"
+              />
+            </div>
+            <div class="input-group">
+              <label for="target-score">🏆 Punkte zum Sieg</label>
+              <input
+                type="number"
+                id="target-score"
+                min="5"
+                max="100"
+                value="20"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="teams-section">
+          <h3>👥 Teams <span class="team-limit">(max. 8)</span></h3>
+          <div class="team-buttons">
+            <button id="add-team-btn" type="button">+ Team</button>
+            <button id="remove-team-btn" type="button" disabled>- Team</button>
+          </div>
+          <div class="compact-teams-container" id="teams-container">
+            <!-- Teams will be added dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="start-game-container">
+        <button id="start-game-btn" disabled>▶️ Spiel starten</button>
+      </div>
+
+      <div class="disclaimer">
+        <p>
+          Dies ist ein inoffizielles Fanprojekt ohne kommerzielle Absicht. Es
+          ist nicht mit Exploding Kittens oder dem Originalspiel "Poesie für
+          Neandertaler" verbunden oder von diesen autorisiert. Dieses Projekt
+          dient ausschließlich zu Lern- und persönlichen Zwecken.
+        </p>
+      </div>
+    </div>
+
+    <div id="game-play" class="game-container hide">
+      <div id="scoreboard" class="scoreboard">
+        <!-- Teams will be generated dynamically -->
+      </div>
+
+      <div class="timer-container">
+        <div class="timer-ring">
+          <div id="timer-fill" class="timer-fill"></div>
+        </div>
+        <div class="timer-center">
+          <div id="timer" class="timer">60</div>
+        </div>
+      </div>
+
+      <div id="current-team" class="animated-text">Team 1 ist dran</div>
+
+      <div class="card-table">
+        <!-- Card Deck (visible before card is drawn) -->
+        <div id="card-deck" class="card-deck">
+          <div class="card-in-deck">
+            <div class="card-back"></div>
+          </div>
+          <div class="card-in-deck">
+            <div class="card-back"></div>
+          </div>
+          <div class="card-in-deck">
+            <div class="card-back"></div>
+          </div>
+        </div>
+
+        <!-- Word Display (replaces active card) -->
+        <div id="active-card" class="word-display">
+          <div class="words-container">
+            <div class="word-label">Einfaches Wort</div>
+            <div id="word" class="word">-</div>
+            <div class="word-label">Zusammengesetztes Wort</div>
+            <div id="compound-word" class="compound-word">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="top-buttons">
+          <button id="point-btn" class="btn-success">✓ Einfach (+1)</button>
+          <button id="compound-btn" class="btn-success">
+            ⭐ Zusammengesetzt (+3)
+          </button>
+        </div>
+        <button id="skip-btn" class="btn-skip">⏩ Überspringen (-1)</button>
+      </div>
+
+      <button id="end-round-btn">⏹️ Runde beenden</button>
+      <button id="start-round-btn" class="hide">▶️ Runde starten</button>
+    </div>
+
+    <div id="game-over" class="game-container hide">
+      <div class="game-over">Spiel beendet!</div>
+      <div class="results" id="final-results">
+        <div id="winner-announcement">Team 1 gewinnt!</div>
+        <!-- Final scores will be added dynamically -->
+      </div>
+      <button id="new-game-btn">🔄 Neues Spiel</button>
+    </div>
+
+    <!-- Offline notification -->
+    <div id="offline-notification" class="hide">
+      Du bist offline. Einige Funktionen könnten eingeschränkt sein.
+    </div>
+
+    <!-- Scripts -->
+    <script src="word-loader.js" defer></script>
+    <script src="ui-effects.js" defer></script>
+    <script src="game-logic.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="cache-control.js" defer></script>
+
+    <noscript>
+      <div class="noscript-message">
+        Diese App benötigt JavaScript. Bitte aktiviere JavaScript in deinem
+        Browser.
+      </div>
+    </noscript>
+  </body>
+</html>
