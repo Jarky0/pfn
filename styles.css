@@ -973,6 +973,7 @@ label {
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border: 2px solid white;
+  transform: translateY(-6px); /* Verschiebe den Thumb nach oben */
 }
 
 .prob-slider::-moz-range-thumb {
@@ -983,14 +984,7 @@ label {
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border: 2px solid white;
-}
-
-.prob-slider:hover::-webkit-slider-thumb {
-  transform: scale(1.1);
-}
-
-.prob-slider:hover::-moz-range-thumb {
-  transform: scale(1.1);
+  transform: translateY(-6px); /* Verschiebe den Thumb nach oben */
 }
 
 /* Show probability direction with gradient */
@@ -1320,11 +1314,13 @@ label {
   .prob-slider::-webkit-slider-thumb {
     width: 24px;
     height: 24px;
+    transform: translateY(-7px); /* Größerer Versatz für Desktop */
   }
   
   .prob-slider::-moz-range-thumb {
     width: 24px;
     height: 24px;
+    transform: translateY(-7px); /* Größerer Versatz für Desktop */
   }
   
   .percentage-display {
