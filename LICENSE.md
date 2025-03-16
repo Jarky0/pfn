@@ -19,3 +19,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+DISCLAIMER: This license applies only to the software implementation. The game
+concept, mechanics and any trademarks or other intellectual property referenced
+by this project belong to their respective owners. This project is not affiliated
+with or endorsed by Exploding Kittens or any related parties. This is an
+unofficial fan project created for personal and educational purposes only.

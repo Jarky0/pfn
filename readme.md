@@ -1,10 +1,14 @@
-# Poesie für Neandertaler (PfN)
+# Primitive Formulierungen für Neudenker (PfN)
 
-Eine mobile Web-App für das beliebte Wortspiel mit Einsilber-Herausforderung.
+Eine mobile Web-App für das Wortspiel mit Einsilber-Herausforderung.
+
+## Disclaimer
+
+**Dies ist ein inoffizielles Fanprojekt ohne kommerzielle Absicht. Es ist nicht mit Exploding Kittens oder dem Originalspiel "Poesie für Neandertaler" verbunden oder von diesen autorisiert. Dieses Projekt dient ausschließlich zu Lern- und persönlichen Zwecken.**
 
 ## Beschreibung
 
-Poesie für Neandertaler ist ein unterhaltsames Gruppenspiel, bei dem Spieler Wörter erklären müssen - und dabei nur einsilbige Wörter verwenden dürfen!
+Primitive Formulierungen für Neudenker ist ein unterhaltsames Gruppenspiel, bei dem Spieler Wörter erklären müssen - und dabei nur einsilbige Wörter verwenden dürfen!
 
 ## Funktionen
 
@@ -18,8 +22,9 @@ Poesie für Neandertaler ist ein unterhaltsames Gruppenspiel, bei dem Spieler W�
 ## Installation
 
 1. Repository klonen:
+
    ```
-   git clone https://github.com/username/poesie-fuer-neandertaler.git
+   git clone https://github.com/username/primitive-formulierungen.git
    ```
 
 2. `index.html` in einem modernen Webbrowser öffnen oder auf einem Webserver bereitstellen.
@@ -39,11 +44,13 @@ Poesie für Neandertaler ist ein unterhaltsames Gruppenspiel, bei dem Spieler W�
 ## Wortlisten
 
 Die App verwendet die Standardwortliste `words_deDE.txt` im Repository. Das Format ist:
+
 ```
 Zusammengesetztes Wort; Einfaches Wort
 ```
 
 Beispiele:
+
 ```
 Zwiebelsuppe; Suppe
 Zwillingsbruder; Bruder
@@ -52,6 +59,7 @@ Spielfeld; Feld
 ```
 
 ### Hinweise zur Wortliste
+
 - Jede Zeile enthält ein Wortpaar
 - Getrennt durch Semikolon
 - Zusammengesetztes Wort zuerst, einfaches Wort danach
@@ -72,6 +80,7 @@ Spielfeld; Feld
 ## Technologien
 
 Diese Web-App wurde mit modernen Webtechnologien entwickelt:
+
 - HTML5 für die Struktur
 - CSS3 für das Styling und Animationen
 - Vanilla JavaScript für die Funktionalität
@@ -80,15 +89,13 @@ Diese Web-App wurde mit modernen Webtechnologien entwickelt:
 
 ## Lizenz
 
-Dieses Projekt steht unter der MIT-Lizenz. Weitere Details in der `LICENSE`-Datei.
+Der von mir geschriebene Code dieses Projekts steht unter der MIT-Lizenz. Weitere Details in der `LICENSE.md`-Datei.
 
-## Entwicklung
+Bitte beachte, dass diese Lizenz nur für die Implementierung gilt und keine Rechte an dem zugrunde liegenden Spielkonzept gewährt, welches von anderem geistigen Eigentum geschützt sein könnte.
 
-Für Beiträge oder Entwicklung:
-1. Repository forken
-2. Feature-Branch erstellen
-3. Änderungen committen
-4. Pull Request öffnen
+## Nur für persönliche Nutzung
+
+Dieses Projekt wurde für persönliche und Lernzwecke erstellt. Es ist nicht für kommerzielle Nutzung oder öffentliche Verbreitung gedacht.
 
 ## Kontakt
 
