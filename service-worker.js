@@ -3,15 +3,17 @@
  * Enables offline functionality
  */
 
-const CACHE_VERSION = "v2"; // Increment this value to invalidate the cache
+const CACHE_VERSION = "v3"; // Increment this value to invalidate the cache
 const CACHE_NAME = `pfn-cache-${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   "/",
   "/index.html",
   "/styles.css",
+  "/game-statistics-styles.css",
   "/word-loader.js",
   "/ui-effects.js",
   "/game-logic.js",
+  "/game-statistics.js",
   "/script.js",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-solid-900.woff2",

@@ -38,6 +38,10 @@ class GameLogic {
       targetReachedByTeam: -1, // Index of the team that first reached target score (-1 means none)
     };
 
+    // Statistics tracking variables
+    this.isTracking = false;
+    this.roundStartTime = null;
+
     // Get DOM elements
     this.getGameElements();
   }
@@ -211,6 +215,12 @@ class GameLogic {
 
     // Hide card
     this.uiEffects.hideCard();
+
+    // Start tracking game statistics if available
+    if (window.gameStatistics) {
+      window.gameStatistics.startTracking(this.gameState);
+      console.log("Spielstatistik-Tracking gestartet");
+    }
   }
 
   /**
@@ -335,48 +345,48 @@ class GameLogic {
       let newWordPair = null;
       let attempts = 0;
       const maxAttempts = 100; // Limit attempts to prevent infinite loop
-      
+
       // Try to get a word that hasn't been used in this game session
       while (attempts < maxAttempts) {
         newWordPair = window.wordLoader.getRandomWordPair();
-        
+
         // If no word was returned or we've exhausted all possible words, exit loop
         if (!newWordPair || this.gameState.usedWordPairs.length >= window.wordLoader.getWordCounts().total) {
           break;
         }
-        
+
         // Check if this word has already been used this session
         const isUsed = this.gameState.usedWordPairs.some(
-          usedPair => 
-            usedPair.compound === newWordPair.compound && 
+          usedPair =>
+            usedPair.compound === newWordPair.compound &&
             usedPair.simple === newWordPair.simple
         );
-        
+
         if (!isUsed) {
           // Found a new word, break out of loop
           break;
         }
-        
+
         attempts++;
       }
-      
+
       // If we couldn't find a new word or no words are available, reset used words
       if (!newWordPair || attempts >= maxAttempts) {
         console.log("Alle Wörter verwendet, setze zurück");
         this.gameState.usedWordPairs = [];
         newWordPair = window.wordLoader.getRandomWordPair();
       }
-      
+
       // If we still don't have a word, use fallback
       if (!newWordPair) {
         console.log("Kein Wort gefunden, verwende Fallback-Wörter");
         const randomIndex = Math.floor(Math.random() * this.defaultWords.length);
         newWordPair = this.defaultWords[randomIndex];
       }
-      
+
       // Store the current word
       this.gameState.currentWordPair = newWordPair;
-      
+
       // Add to used words
       this.gameState.usedWordPairs.push(newWordPair);
     } else {
@@ -428,65 +438,6 @@ class GameLogic {
   }
 
   /**
-   * End the current round (when timer reaches 0)
-   */
-  endRound() {
-    clearInterval(this.gameState.timer);
-    this.gameState.roundActive = false;
-
-    this.updateButtonStates(false);
-    if (this.endRoundBtn) this.endRoundBtn.disabled = false;
-
-    if (this.timerDisplay) {
-      this.timerDisplay.innerText = "0";
-      this.timerDisplay.style.color = "#e74c3c";
-    }
-
-    // Flip the card
-    this.uiEffects.flipCard();
-  }
-
-  /**
-   * End current round and switch teams (when end round button is clicked)
-   */
-  endCurrentRound() {
-    clearInterval(this.gameState.timer);
-    this.gameState.roundActive = false;
-
-    // Disable control buttons
-    this.updateButtonStates(false);
-    if (this.endRoundBtn) this.endRoundBtn.classList.add("hide");
-
-    // Check if the game should end
-    if (this.shouldEndGame()) {
-      this.endGame();
-      return;
-    }
-
-    // Switch to next team
-    const teamCount = this.gameState.teams.length;
-    this.gameState.currentTeamIndex =
-      (this.gameState.currentTeamIndex + 1) % teamCount;
-    this.updateTeamDisplay();
-
-    // Show start round button
-    if (this.startRoundBtn) this.startRoundBtn.classList.remove("hide");
-
-    // Hide card
-    this.uiEffects.hideCard();
-
-    // Reset timer
-    this.gameState.timeLeft = this.gameState.roundTime;
-
-    if (this.timerDisplay) {
-      this.timerDisplay.innerText = this.gameState.timeLeft;
-      this.timerDisplay.style.color = "#2c3e50";
-    }
-
-    this.uiEffects.updateTimerRing(1);
-  }
-
-  /**
    * Start a new round
    */
   startRound() {
@@ -523,6 +474,83 @@ class GameLogic {
 
     // Start the timer
     this.startTimer();
+
+    // Start tracking round statistics
+    this.roundStartTime = Date.now(); // Track when the round started
+
+    // Start tracking round statistics if available
+    if (window.gameStatistics) {
+      window.gameStatistics.startRound(this.gameState.currentTeamIndex);
+      console.log(`Started round tracking for team ${this.gameState.currentTeamIndex}`);
+    }
+    else {
+      console.log("Cannot start statistics tracking - gameStatistics not available");
+    }
+  }
+
+  /**
+   * End the current round (when timer reaches 0)
+   */
+  endRound() {
+    clearInterval(this.gameState.timer);
+    this.gameState.roundActive = false;
+
+    this.updateButtonStates(false);
+    if (this.endRoundBtn) this.endRoundBtn.disabled = false;
+
+    if (this.timerDisplay) {
+      this.timerDisplay.innerText = "0";
+      this.timerDisplay.style.color = "#e74c3c";
+    }
+
+    // Flip the card
+    this.uiEffects.flipCard();
+  }
+
+  /**
+   * End current round and switch teams (when end round button is clicked)
+   */
+  endCurrentRound() {
+    clearInterval(this.gameState.timer);
+    this.gameState.roundActive = false;
+
+    // End round tracking for statistics
+    if (window.gameStatistics) {
+      window.gameStatistics.endRound();
+      console.log("Rundenstatistik-Tracking beendet");
+    }
+
+    // Disable control buttons
+    this.updateButtonStates(false);
+    if (this.endRoundBtn) this.endRoundBtn.classList.add("hide");
+
+    // Check if the game should end
+    if (this.shouldEndGame()) {
+      this.endGame();
+      return;
+    }
+
+    // Switch to next team
+    const teamCount = this.gameState.teams.length;
+    this.gameState.currentTeamIndex =
+      (this.gameState.currentTeamIndex + 1) % teamCount;
+    this.updateTeamDisplay();
+
+    // Show start round button
+    if (this.startRoundBtn) this.startRoundBtn.classList.remove("hide");
+
+    // Hide card
+    this.uiEffects.hideCard();
+
+    // Reset timer
+    this.gameState.timeLeft = this.gameState.roundTime;
+
+    if (this.timerDisplay) {
+      this.timerDisplay.innerText = this.gameState.timeLeft;
+      this.timerDisplay.style.color = "#2c3e50";
+    }
+
+    this.uiEffects.updateTimerRing(1);
   }
 
   /**
@@ -543,6 +571,50 @@ class GameLogic {
 
     // Update score display
     this.updateScoreDisplay();
+
+    // Record statistics if available
+    if (window.gameStatistics && this.gameState.currentWordPair) {
+      // Determine action type based on points
+      let actionType;
+
+      if (points === 1) {
+        actionType = "simple";
+        console.log("Recording SIMPLE word action");
+      }
+      else if (points === 3) {
+        actionType = "compound";
+        console.log("Recording COMPOUND word action");
+      }
+      else if (points < 0) {
+        actionType = "skipped";
+        console.log("Recording SKIPPED word action");
+      }
+      else {
+        // Default fallback
+        actionType = points > 0 ? "simple" : "skipped";
+        console.log(`Recording ${actionType} word action (fallback)`);
+      }
+
+      // Calculate time used for this word
+      let timeUsed = 0;
+      if (this.roundStartTime) {
+        timeUsed = (Date.now() - this.roundStartTime) / 1000; // in seconds
+        this.roundStartTime = Date.now(); // Reset for next word
+      }
+
+      // Record the action with detailed information
+      window.gameStatistics.recordWordAction(
+        this.gameState.currentWordPair,
+        actionType,
+        points,
+        timeUsed
+      );
+
+      console.log(`Recorded word action: ${this.gameState.currentWordPair.simple}/${this.gameState.currentWordPair.compound}, type: ${actionType}, points: ${points}`);
+    }
+    else {
+      console.log("Cannot record statistics - gameStatistics not available or no current word pair");
+    }
 
     // Check if the target score has been reached, but don't set gameOver yet
     if (!this.gameState.targetScoreReached && this.checkTargetScoreReached()) {
@@ -610,6 +682,14 @@ class GameLogic {
     // Disable all buttons
     this.disableAllButtons();
 
+    // Finalize game statistics if available
+    let gameStatData = null;
+    if (window.gameStatistics) {
+      // Pass the current game state to ensure accurate statistics
+      gameStatData = window.gameStatistics.endGame(this.gameState);
+      console.log("Spielstatistik-Tracking beendet");
+    }
+
     // Wait a moment before showing game over screen
     setTimeout(() => {
       if (this.gamePlay) this.gamePlay.classList.add("hide");
@@ -670,6 +750,25 @@ class GameLogic {
         if (winnerTeam.color) {
           winnerAnnouncement.style.color = winnerTeam.color;
         }
+      }
+
+      // Add statistics button to game over screen
+      if (window.gameStatistics) {
+        const statsButtonContainer = document.createElement("div");
+        statsButtonContainer.className = "stats-button-container";
+        statsButtonContainer.style.marginTop = "15px";
+
+        const showStatsButton = document.createElement("button");
+        showStatsButton.id = "show-stats-btn";
+        showStatsButton.innerText = "📊 Detailstatistik anzeigen";
+        showStatsButton.className = "stats-button";
+        showStatsButton.style.backgroundColor = "#3498db";
+        showStatsButton.addEventListener("click", () => {
+          window.gameStatistics.showStatsModal(gameStatData);
+        });
+
+        statsButtonContainer.appendChild(showStatsButton);
+        finalResults.appendChild(statsButtonContainer);
       }
     }, 1000);
   }
