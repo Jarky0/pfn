@@ -24,64 +24,109 @@ export class TeamSetup {
         this.addTeamBtn = null;
         this.removeTeamBtn = null;
 
-        // Initialize
-        this.setupControls();
-        this.renderTeamChips(2); // Start with 2 teams
+        // Log elements for debugging
+        console.log('TeamSetup constructor:', {
+            container: this.container,
+            teamContainer: this.teamContainer
+        });
+
+        // Initialize if container exists
+        if (this.container && this.teamContainer) {
+            this.setupControls();
+            this.bindEvents();
+            this.renderTeamChips(2); // Start with 2 teams
+        } else {
+            console.error('TeamSetup: Container or teamContainer is missing');
+        }
     }
 
     /**
-     * Setup team management controls
+     * Setup team management controls by finding existing buttons
      */
     setupControls() {
-        if (!this.container) return;
+        if (!this.container) {
+            console.error('TeamSetup: Container is missing');
+            return;
+        }
 
-        // Create buttons if they don't exist
+        // Find existing buttons by ID
+        this.addTeamBtn = document.getElementById('add-team-btn');
+        this.removeTeamBtn = document.getElementById('remove-team-btn');
+
+        console.log('TeamSetup setupControls found buttons:', {
+            addTeamBtn: this.addTeamBtn,
+            removeTeamBtn: this.removeTeamBtn
+        });
+
+        // Fallback - create buttons if they don't exist
         if (!this.addTeamBtn) {
             this.addTeamBtn = document.createElement('button');
             this.addTeamBtn.id = 'add-team-btn';
             this.addTeamBtn.textContent = '+ Team';
+            this.addTeamBtn.className = 'button button--small button--add-team';
             this.container.appendChild(this.addTeamBtn);
+            console.log('Created add team button');
         }
 
         if (!this.removeTeamBtn) {
             this.removeTeamBtn = document.createElement('button');
             this.removeTeamBtn.id = 'remove-team-btn';
             this.removeTeamBtn.textContent = '- Team';
+            this.removeTeamBtn.className = 'button button--small button--remove-team';
             this.removeTeamBtn.disabled = true;
             this.container.appendChild(this.removeTeamBtn);
+            console.log('Created remove team button');
         }
-
+    }
+    
+    /**
+     * Bind event listeners to buttons
+     */
+    bindEvents() {
+        if (!this.addTeamBtn || !this.removeTeamBtn) {
+            console.error('TeamSetup: Buttons not found for event binding');
+            return;
+        }
+    
+        // Clear existing listeners first (to prevent duplicates)
+        this.addTeamBtn.replaceWith(this.addTeamBtn.cloneNode(true));
+        this.removeTeamBtn.replaceWith(this.removeTeamBtn.cloneNode(true));
+        
+        // Get fresh references after replacing
+        this.addTeamBtn = document.getElementById('add-team-btn');
+        this.removeTeamBtn = document.getElementById('remove-team-btn');
+    
         // Add event listeners
         this.addTeamBtn.addEventListener('click', () => {
             const teamChips = this.teamContainer.querySelectorAll('.team-chip');
             const newTeamCount = teamChips.length + 1;
-
+    
             // Check if max teams reached
             if (newTeamCount > this.MAX_TEAMS) {
                 console.log(`Maximale Teamanzahl (${this.MAX_TEAMS}) erreicht`);
                 return;
             }
-
+    
             console.log(`Button geklickt: Team hinzufügen, neue Anzahl: ${newTeamCount}`);
             this.renderTeamChips(newTeamCount);
-
+    
             // Enable remove button if more than MIN_TEAMS teams
             this.updateButtonStates(newTeamCount);
         });
-
+    
         this.removeTeamBtn.addEventListener('click', () => {
             const teamChips = this.teamContainer.querySelectorAll('.team-chip');
             if (teamChips.length > this.MIN_TEAMS) {
                 const newTeamCount = teamChips.length - 1;
-
+    
                 console.log(`Button geklickt: Team entfernen, neue Anzahl: ${newTeamCount}`);
                 this.renderTeamChips(newTeamCount);
-
+    
                 // Update button states
                 this.updateButtonStates(newTeamCount);
             }
         });
-
+    
         console.log('Team-Control Event-Listener hinzugefügt');
     }
 
