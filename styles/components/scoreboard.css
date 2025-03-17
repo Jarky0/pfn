@@ -1,0 +1,90 @@
+/**
+ * Scoreboard Component
+ * Styles für die Punkteanzeige der Teams
+ */
+
+.scoreboard {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Basis-Team-Score Style */
+.team-score {
+    flex: 1 0 calc(50% - var(--spacing-sm));
+    min-width: 100px;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-button);
+    background-color: var(--color-team-default);
+    color: var(--color-text-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+/* Aktives Team Hervorhebung */
+.team-score--active {
+    background-color: var(--color-team-active);
+    transform: scale(1.02);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Team Varianten basierend auf Teamanzahl */
+.scoreboard--teams-3 .team-score {
+    flex: 1 0 calc(33.33% - var(--spacing-sm));
+}
+
+.scoreboard--teams-4 .team-score {
+    flex: 1 0 calc(50% - var(--spacing-sm));
+}
+
+.scoreboard--teams-5 .team-score,
+.scoreboard--teams-6 .team-score {
+    flex: 1 0 calc(33.33% - var(--spacing-sm));
+}
+
+.scoreboard--teams-7 .team-score,
+.scoreboard--teams-8 .team-score,
+.scoreboard--teams-9 .team-score,
+.scoreboard--teams-10 .team-score {
+    flex: 1 0 calc(25% - 6px);
+    padding: 3px;
+    font-size: 0.9em;
+}
+
+/* Team Score Elements */
+.team-score__number {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.team-score__name {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Score Change Animation */
+.team-score__change {
+    position: absolute;
+    font-weight: bold;
+    opacity: 0;
+    font-size: var(--font-size-sm);
+}
+
+.team-score__change--positive {
+    color: var(--color-success);
+    animation: score-pop 1s ease-out;
+}
+
+.team-score__change--negative {
+    color: var(--color-accent);
+    animation: score-pop 1s ease-out;
+}

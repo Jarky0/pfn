@@ -1,0 +1,99 @@
+/**
+ * Game Over Page
+ * Styles für den Spielende-Bildschirm
+ */
+
+/* Game Over Hauptüberschrift */
+.game-over__title {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin: 15px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+}
+
+/* Ergebnis-Container */
+.game-over__results {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f1f9fe;
+    border-radius: var(--radius-medium);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Gewinner-Anzeige */
+.game-over__winner {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+
+/* Einzelne Team-Ergebnisse */
+.game-over__team-score {
+    padding: 8px 10px;
+    margin: 5px 0;
+    border-radius: var(--radius-small);
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all var(--transition-fast);
+}
+
+.game-over__team-score:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Sieger-Team hervorheben */
+.game-over__team-score--winner {
+    background-color: rgba(46, 204, 113, 0.1);
+    font-weight: bold;
+}
+
+/* Konfetti-Animation */
+.confetti {
+    width: 8px;
+    height: 8px;
+    background-color: #f39c12;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    opacity: 0;
+    border-radius: 0 50% 50% 50%;
+    animation: confetti-fall 4s ease-in-out infinite;
+}
+
+/* Stats-Button-Container */
+.stats-button-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.stats-button {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-button);
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: var(--shadow-primary), var(--shadow-button);
+}
+
+.stats-button:hover {
+    transform: translateY(-2px);
+    background-color: #2980b9;
+}
+
+/* Neues Spiel Button */
+.game-over__new-game {
+    margin-top: 20px;
+    padding: 12px 20px;
+    font-size: var(--font-size-lg);
+    width: 80%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}

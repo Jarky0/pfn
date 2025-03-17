@@ -1,0 +1,106 @@
+/**
+ * Animations
+ * Zentrale Definition für alle Animationen in der App
+ */
+
+/* Fade-In Effekt */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Score Popup Animation */
+@keyframes score-pop {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    20%,
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Pulse Animation (für Game Over und andere Hervorhebungen) */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(100px, 400px, 0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Slide Up Animation (für Benachrichtigungen) */
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Fade In Animation (für Text) */
+@keyframes fade-in-text {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Verwendbare Animations-Klassen */
+.animate-fade-in {
+    animation: fade-in var(--transition-normal) forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+.animate-score-pop {
+    animation: score-pop 1s ease-out;
+}
+
+.animate-slide-up {
+    animation: slide-up var(--transition-normal) ease-out;
+}
+
+.animate-fade-in-text {
+    animation: fade-in-text var(--transition-fast) ease-out;
+}

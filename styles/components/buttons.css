@@ -1,0 +1,138 @@
+/**
+ * Button Components
+ * Styles für alle Buttons in der App
+ */
+
+/* Basis-Button-Stil */
+.button {
+    background-color: var(--color-button-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-button);
+    padding: 8px 12px;
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    box-shadow: var(--shadow-primary), var(--shadow-button);
+    position: relative;
+    top: 0;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+}
+
+/* Button-Varianten */
+.button--skip,
+.button--success {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+.button--skip {
+    background-color: var(--color-button-danger);
+    box-shadow: var(--shadow-accent), var(--shadow-button);
+}
+
+.button--success {
+    background-color: var(--color-button-success);
+    box-shadow: var(--shadow-success), var(--shadow-button);
+}
+
+.button--start {
+    background-color: var(--color-button-success);
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    width: 80%;
+    max-width: 250px;
+    box-shadow: 0 3px 0 #1e8449, 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button--small {
+    font-size: var(--font-size-sm);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+/* Button Zustände */
+.button:hover,
+.button:focus {
+    box-shadow: 0 3px 0 #1c6ea4, var(--shadow-button-hover);
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.button:active {
+    box-shadow: 0 1px 0 #1c6ea4;
+    top: 2px;
+    transform: translateY(0);
+}
+
+.button:disabled {
+    background-color: var(--color-button-disabled);
+    box-shadow: 0 2px 0 #7f8c8d;
+    cursor: not-allowed;
+    opacity: 0.8;
+    top: 0;
+    transform: translateY(0);
+}
+
+/* Button-Varianten: Hover und Fokus */
+.button--skip:hover,
+.button--skip:focus {
+    background-color: #f45442;
+    box-shadow: 0 3px 0 #c0392b, var(--shadow-button-hover);
+}
+
+.button--skip:active {
+    box-shadow: 0 1px 0 #c0392b;
+}
+
+.button--success:hover,
+.button--success:focus {
+    background-color: #2ecc71;
+    box-shadow: 0 3px 0 #1e8449, var(--shadow-button-hover);
+}
+
+.button--success:active {
+    box-shadow: 0 1px 0 #1e8449;
+}
+
+/* Button-Gruppen-Layouts */
+.controls {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.top-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: space-between;
+}
+
+.top-buttons .button {
+    flex: 1;
+}
+
+.button--end-round,
+.button--start-round,
+.button--start-game {
+    margin-top: 12px;
+}
+
+.start-game-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 15px 0;
+}
+
+/* Team-spezifische Buttons */
+.button--add-team {
+    background-color: var(--color-button-success);
+    box-shadow: var(--shadow-success), var(--shadow-button);
+}
+
+.button--remove-team {
+    background-color: var(--color-button-danger);
+    box-shadow: var(--shadow-accent), var(--shadow-button);
+}

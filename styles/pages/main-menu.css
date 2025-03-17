@@ -1,0 +1,327 @@
+/**
+ * Main Menu Page Styles
+ * Styles für die Hauptmenü-Seite
+ */
+
+/* Anleitung und Regeln */
+.instructions {
+    text-align: left;
+    background-color: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-medium);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-xs);
+    border-left: 4px solid var(--color-secondary);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.instructions__heading {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.instructions__list {
+    padding-left: 15px;
+    margin: var(--spacing-xs) 0;
+}
+
+.instructions__item {
+    margin-bottom: 4px;
+    line-height: 1.4;
+    position: relative;
+}
+
+.instructions__item::before {
+    content: "•";
+    color: var(--color-secondary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.instructions__sublist {
+    margin-top: 4px;
+    margin-bottom: 6px;
+    padding-left: 15px;
+}
+
+.instructions__subitem {
+    margin-bottom: 2px;
+}
+
+.rules-note {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-top: 8px;
+    font-style: italic;
+    color: var(--color-secondary);
+    font-size: var(--font-size-xs);
+    text-align: center;
+}
+
+/* Datei-Upload-Bereich */
+.file-input {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+    background-color: var(--color-bg-lightest);
+    border-radius: var(--radius-medium);
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    background-color: var(--color-warning);
+    color: white;
+    border-radius: var(--radius-button);
+    box-shadow: 0 2px 0 #d35400, var(--shadow-button);
+    position: relative;
+    top: 0;
+    margin: 5px 0;
+    font-size: 13px;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.custom-file-upload:hover,
+.custom-file-upload:focus {
+    background-color: #f1c40f;
+    box-shadow: 0 3px 0 #d35400, var(--shadow-button-hover);
+    transform: translateY(-2px);
+}
+
+.custom-file-upload:active {
+    box-shadow: 0 1px 0 #d35400;
+    top: 2px;
+}
+
+/* Statusmeldungen */
+.status-message {
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: var(--radius-small);
+    font-size: var(--font-size-xs);
+}
+
+.status-message--success {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--color-success);
+}
+
+.status-message--error {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--color-accent);
+}
+
+/* Beispielformat für Dateiupload */
+.example-format {
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: var(--spacing-sm);
+    border-radius: 6px;
+    font-family: monospace;
+    margin: 6px 0;
+    font-size: 12px;
+    border: 1px solid #ddd;
+}
+
+/* Disclaimer */
+.disclaimer {
+    background-color: #f8f4e5;
+    border-left: 4px solid var(--color-accent);
+    line-height: 1.4;
+    color: var(--color-text);
+    text-align: left;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-button);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+}
+
+.disclaimer__text {
+    margin: 0;
+    font-size: var(--font-size-xs);
+}
+
+/* Game Setup / Options */
+.game-setup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-md) 0;
+}
+
+.game-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.options-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: 0 auto 5px auto;
+    max-width: 500px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+    flex: 1;
+    min-width: 100px;
+}
+
+.input {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-button);
+    border: 1px solid var(--color-border);
+    width: 100%;
+    font-size: var(--font-size-md);
+    transition: border-color var(--transition-fast);
+    background-color: var(--color-bg-lightest);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.input--number {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.input--number::-webkit-inner-spin-button,
+.input--number::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.input--file {
+    display: none;
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: var(--font-size-xs);
+}
+
+/* Wortlisten-Wahrscheinlichkeit */
+.word-list-prob {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+}
+
+.word-list-prob__heading {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.prob-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.prob-slider {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--color-bg-lightest);
+    outline: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.prob-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    transform: translateY(-6px);
+}
+
+.prob-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    transform: translateY(-6px);
+}
+
+/* Anzeige des Verlaufsschieberegler-Tracks */
+.prob-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--color-primary) 0%, var(--color-accent) 100%);
+    height: 8px;
+    border-radius: 4px;
+}
+
+.prob-slider::-moz-range-track {
+    background: linear-gradient(to right, var(--color-primary) 0%, var(--color-accent) 100%);
+    height: 8px;
+    border-radius: 4px;
+}
+
+.percentage-display {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--color-text);
+    text-align: center;
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin: 5px 0;
+}
+
+.prob-note {
+    font-size: var(--font-size-xs);
+    font-style: italic;
+    color: #666;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.list-info-display {
+    background-color: rgba(52, 152, 219, 0.1);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-small);
+    margin: var(--spacing-md) 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    white-space: pre-line;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+/* Verstecken des Wahrscheinlichkeitsreglers bei Bedarf */
+.word-list-prob--hidden {
+    display: none;
+}
