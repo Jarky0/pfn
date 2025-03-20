@@ -1,0 +1,169 @@
+/**
+ * Base Styles
+ * Grundlegende Stile für die gesamte App
+ */
+
+/* Reset und Basis-Stile */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Body-Grundstil */
+body {
+    -webkit-user-select: none;
+    user-select: none;
+    font-family: var(--font-family-base);
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: calc(5px + var(--safe-area-inset-top)) calc(8px + var(--safe-area-inset-right)) calc(5px + var(--safe-area-inset-bottom)) calc(8px + var(--safe-area-inset-left));
+    background-color: var(--color-background);
+    color: var(--color-text);
+    position: relative;
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-md);
+    line-height: 1.4;
+}
+
+/* Emoji-Hintergrund */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><text x='15' y='40' font-size='30px'>🍖</text></svg>");
+    background-size: 60px 60px;
+    opacity: 0.08;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Vereinfachte Typografie */
+h1,
+h2,
+h3 {
+    font-weight: 600;
+    margin: 4px 0;
+}
+
+h1 {
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    letter-spacing: 0.5px;
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+h2 {
+    font-size: var(--font-size-lg);
+}
+
+h3 {
+    font-size: var(--font-size-md);
+}
+
+p {
+    font-size: var(--font-size-sm);
+    margin: 4px 0;
+}
+
+/* Spielcontainer */
+.game-container {
+    background-color: rgba(255, 255, 255, 0.97);
+    border-radius: var(--radius-large);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-normal);
+    margin-bottom: 6px;
+    border: 1px solid #34495e;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: calc(100vh - 50px - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
+}
+
+/* Utility-Klassen */
+.hide {
+    display: none !important;
+}
+
+/* Titel-Stile */
+.title {
+    color: #ffe699;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 0 -1px 1px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    position: relative;
+    font-size: clamp(1rem, 3.8vw, 1.7rem);
+    padding-bottom: 6px;
+}
+
+.title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            rgba(255, 230, 153, 0),
+            rgba(255, 230, 153, 1) 20%,
+            rgba(255, 230, 153, 1) 80%,
+            rgba(255, 230, 153, 0));
+    z-index: 1;
+}
+
+.animated-text {
+    animation: fade-in-text 0.5s ease-out;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 5px 0;
+    color: var(--color-primary);
+}
+
+/* Offline-Benachrichtigung */
+.offline-notification {
+    position: fixed;
+    bottom: calc(var(--safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    background-color: rgba(231, 76, 60, 0.95);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    z-index: var(--z-index-notification);
+    animation: slide-up 0.3s ease-out;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* NoScript-Meldung */
+.noscript-message {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-accent);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 9999;
+    font-size: 16px;
+    font-weight: bold;
+}

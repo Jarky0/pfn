@@ -1,0 +1,151 @@
+/**
+ * Word Display Component
+ * Styles für die Wortanzeige
+ */
+
+/* Card Table und Deck */
+.card-table {
+    position: relative;
+    height: 175px;
+    margin: var(--spacing-sm) 0;
+    perspective: 1000px;
+}
+
+.card-deck {
+    width: 110px;
+    height: 165px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+}
+
+.card-in-deck {
+    width: 110px;
+    height: 165px;
+    position: absolute;
+    background-color: var(--color-bg-light);
+    border-radius: var(--radius-card);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-border);
+    transform-style: preserve-3d;
+    transition: all var(--transition-normal);
+}
+
+/* Optimierter Stack-Effekt */
+.card-in-deck:nth-child(1) {
+    transform: translateZ(0) translateX(0) translateY(0);
+}
+
+.card-in-deck:nth-child(2) {
+    transform: translateZ(-1px) translateX(2px) translateY(-2px);
+}
+
+.card-in-deck:nth-child(3) {
+    transform: translateZ(-2px) translateX(4px) translateY(-4px);
+}
+
+.card-in-deck:nth-child(4) {
+    transform: translateZ(-3px) translateX(6px) translateY(-6px);
+}
+
+.card-in-deck:nth-child(5) {
+    transform: translateZ(-4px) translateX(8px) translateY(-8px);
+}
+
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-card);
+    background-color: var(--color-card-back);
+    background-image: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(0, 0, 0, 0.1) 10px,
+            rgba(0, 0, 0, 0.1) 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+}
+
+.card-back::before {
+    content: "●";
+    font-family: serif;
+    font-weight: bold;
+    font-size: 26px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Wortanzeige */
+.word-display {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    background-color: var(--color-bg-light);
+    border-radius: var(--radius-card);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: var(--spacing-md);
+    animation: fade-in 0.4s ease-out forwards;
+    border: 1px solid #e5e5e5;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all var(--transition-normal);
+}
+
+/* Wörter und Labels */
+.words-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 6px;
+}
+
+.word,
+.compound-word {
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    padding: 8px 4px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word {
+    font-size: 24px;
+    min-height: 42px;
+}
+
+.compound-word {
+    font-size: 22px;
+    color: var(--color-accent);
+    min-height: 42px;
+}
+
+.word-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    text-align: center;
+    font-weight: 500;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Highlighted states */
+.word--highlighted,
+.compound-word--highlighted {
+    background-color: #f0f0f0;
+}
+
+.word-label--highlighted {
+    color: var(--color-secondary);
+}

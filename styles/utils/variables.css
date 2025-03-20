@@ -1,0 +1,89 @@
+/**
+ * CSS Variables
+ * Zentrale Farbdefinitionen und Design-Tokens für die App
+ */
+
+:root {
+    /* Primäre Farbpalette */
+    --color-primary: #2c3e50;
+    --color-secondary: #3498db;
+    --color-accent: #e74c3c;
+    --color-success: #27ae60;
+    --color-warning: #f39c12;
+
+    /* Semantische Farbzuweisung */
+    --color-background: var(--color-primary);
+    --color-text: #333333;
+    --color-text-light: #f8f9fa;
+    --color-text-muted: #777777;
+    --color-border: #dddddd;
+
+    /* Hintergrundfarben */
+    --color-bg-light: #f8f8f8;
+    --color-bg-lighter: #f9f9f9;
+    --color-bg-lightest: #ecf0f1;
+
+    /* Team-Farben */
+    --color-team-active: var(--color-success);
+    --color-team-default: var(--color-secondary);
+
+    /* Button-Farben */
+    --color-button-primary: var(--color-secondary);
+    --color-button-success: var(--color-success);
+    --color-button-danger: var(--color-accent);
+    --color-button-disabled: #95a5a6;
+
+    /* Card-Farben */
+    --color-card-background: #ffffff;
+    --color-card-back: var(--color-accent);
+
+    /* Unified shadows */
+    --shadow-normal: 0 4px 10px rgba(0, 0, 0, 0.15);
+    --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.15);
+    --shadow-primary: 0 2px 0 #1c6ea4;
+    --shadow-success: 0 2px 0 #1e8449;
+    --shadow-accent: 0 2px 0 #c0392b;
+    --shadow-button-hover: 0 3px 6px rgba(0, 0, 0, 0.2);
+
+    /* Border radiuses */
+    --radius-small: 5px;
+    --radius-medium: 8px;
+    --radius-large: 12px;
+    --radius-card: 15px;
+    --radius-round: 50%;
+    --radius-button: var(--radius-medium);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+
+    /* Typography */
+    --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-family-heading: -apple-system, BlinkMacSystemFont, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2rem;
+
+    /* Transition timing */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Safe Area insets for notched devices */
+    --safe-area-inset-top: env(safe-area-inset-top, 0px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-inset-left: env(safe-area-inset-left, 0px);
+    --safe-area-inset-right: env(safe-area-inset-right, 0px);
+
+    /* Z-index Ebenen */
+    --z-index-base: 1;
+    --z-index-overlay: 10;
+    --z-index-modal: 100;
+    --z-index-notification: 1000;
+}

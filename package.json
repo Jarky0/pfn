@@ -1,0 +1,22 @@
+{
+    "name": "primitive-formulierungen-fuer-neudenker",
+    "version": "1.0.0",
+    "description": "Ein Wortspiel, bei dem nur einsilbige Wörter verwendet werden dürfen",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "keywords": [
+        "wortspiel",
+        "pwa",
+        "game"
+    ],
+    "author": "Tobias Walters",
+    "license": "MIT",
+    "devDependencies": {
+        "vite": "^5.1.4"
+    }
+}

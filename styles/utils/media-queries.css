@@ -1,0 +1,433 @@
+/**
+ * Media Queries
+ * Breakpoint-Definitionen für responsive Design
+ */
+
+/* Breakpoints für verschiedene Gerätetypen */
+:root {
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1200px;
+    --breakpoint-large-desktop: 1600px;
+}
+
+/* Kleinere Bildschirme und Geräte mit niedriger Höhe */
+@media (max-height: 600px) {
+
+    /* Anpassungen für niedrige Bildschirmhöhe */
+    .instructions {
+        padding: 5px;
+        font-size: var(--font-size-xs);
+    }
+
+    .instructions__heading {
+        font-size: var(--font-size-sm);
+        margin-bottom: 3px;
+    }
+
+    .instructions__list {
+        margin: 2px 0;
+    }
+
+    .instructions__item {
+        margin-bottom: 0;
+    }
+
+    .title {
+        font-size: clamp(1rem, 3.5vw, 1.5rem);
+        margin-top: 2px;
+        margin-bottom: 4px;
+    }
+
+    .game-container {
+        padding: 8px;
+    }
+
+    .card-table {
+        height: 150px;
+    }
+
+    .controls {
+        margin: 3px 0;
+    }
+}
+
+/* Tablet und größer */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .game-container {
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+        padding: 20px;
+        border-radius: 20px;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .title {
+        font-size: clamp(1.8rem, 3vw, 2.2rem);
+        margin-bottom: 15px;
+        white-space: normal;
+    }
+
+    /* Größere Elemente auf Desktop */
+    .card-table {
+        height: 230px;
+        margin: 15px 0;
+    }
+
+    .card-deck,
+    .card-in-deck {
+        width: 140px;
+        height: 210px;
+    }
+
+    .word-display {
+        width: 90%;
+        max-width: 550px;
+        min-height: 200px;
+        padding: 20px;
+    }
+
+    .word {
+        font-size: 32px;
+        min-height: 60px;
+    }
+
+    .compound-word {
+        font-size: 30px;
+        min-height: 60px;
+    }
+
+    .word-label {
+        font-size: 14px;
+    }
+
+    .timer-container {
+        width: 60px;
+        height: 60px;
+        margin: 10px auto;
+    }
+
+    .timer {
+        font-size: 22px;
+    }
+
+    .button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    .controls {
+        gap: 12px;
+        margin: 15px 0;
+    }
+
+    .top-buttons {
+        gap: 15px;
+    }
+
+    .button--success,
+    .button--skip {
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+
+    .button--end-round,
+    .button--start-round {
+        margin-top: 15px;
+        max-width: 300px;
+        align-self: center;
+    }
+
+    /* Größere Formularelemente */
+    .game-setup {
+        max-width: 500px;
+        margin: 15px auto;
+    }
+
+    .input {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    .label {
+        font-size: 14px;
+    }
+
+    /* Verbesserte Resultattafel */
+    .scoreboard {
+        max-width: 500px;
+        margin: 10px auto;
+    }
+
+    .team-score {
+        padding: 10px;
+    }
+
+    .score-number {
+        font-size: 1.4rem;
+    }
+
+    /* Andere Desktop-Elemente */
+    .file-input,
+    .instructions {
+        max-width: 500px;
+        margin: 15px auto;
+        padding: 15px;
+    }
+
+    .instructions {
+        font-size: 0.9rem;
+    }
+
+    .instructions__heading {
+        font-size: 1.1rem;
+    }
+
+    /* Desktop-Hover-Effekte */
+    .button:hover {
+        transform: translateY(-2px);
+    }
+
+    /* Verbessertes Team-Layout */
+    .scoreboard .team-score {
+        flex: 1 0 calc(25% - 8px);
+        min-width: 120px;
+    }
+
+    .scoreboard--teams-5 .team-score {
+        flex: 1 0 calc(20% - 8px);
+    }
+
+    .scoreboard--teams-6 .team-score {
+        flex: 1 0 calc(16.66% - 8px);
+    }
+
+    .scoreboard--teams-7 .team-score,
+    .scoreboard--teams-8 .team-score {
+        flex: 1 0 calc(25% - 8px);
+        font-size: 0.85em;
+    }
+
+    .start-game-container {
+        grid-column: 1 / span 2;
+        margin-top: 20px;
+    }
+
+    #start-game-btn {
+        font-size: 1.2rem;
+        padding: 12px 30px;
+    }
+
+    .disclaimer__text {
+        font-size: 0.9rem;
+    }
+
+    .prob-slider {
+        height: 10px;
+    }
+
+    .prob-slider::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+        transform: translateY(-7px);
+    }
+
+    .prob-slider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+        transform: translateY(-7px);
+    }
+
+    .percentage-display {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+
+    .word-list-prob__heading {
+        font-size: 1rem;
+    }
+
+    .prob-note {
+        font-size: 0.85rem;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .game-container {
+        max-width: 800px;
+    }
+
+    /* Zweispaltiges Layout für Hauptmenü */
+    #main-menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-gap: 20px;
+        align-items: start;
+    }
+
+    .instructions {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        margin: 0;
+        height: 100%;
+        min-height: 250px;
+    }
+
+    .file-input {
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+    }
+
+    .game-setup {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 0;
+    }
+
+    .start-game-container {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+        margin: 10px 0;
+    }
+
+    .disclaimer {
+        grid-column: 1 / span 2;
+        grid-row: 4;
+        margin: 0;
+    }
+
+    /* Größere Elemente */
+    .card-table {
+        height: 280px;
+    }
+
+    .word-display {
+        max-width: 700px;
+        min-height: 250px;
+    }
+
+    .word {
+        font-size: 36px;
+    }
+
+    .compound-word {
+        font-size: 34px;
+    }
+
+    /* Verbesserte Team-Elemente */
+    .teams__container {
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .team-chip {
+        padding: 8px 15px;
+        min-width: 80px;
+        font-size: 1rem;
+    }
+
+    .team-score {
+        padding: 8px;
+        min-width: 140px;
+    }
+
+    .team-name-display {
+        font-size: 0.95rem;
+    }
+
+    .score-number {
+        font-size: 1.2rem;
+    }
+}
+
+/* Große Desktop-Bildschirme */
+@media (min-width: 1600px) {
+    body {
+        padding: 30px;
+    }
+
+    .game-container {
+        max-width: 1000px;
+    }
+
+    .title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    #main-menu {
+        grid-gap: 40px;
+        padding: 30px;
+    }
+
+    .card-table {
+        height: 320px;
+        margin: 25px 0;
+    }
+
+    .word-display {
+        max-width: 800px;
+        min-height: 280px;
+        padding: 30px;
+    }
+
+    .word {
+        font-size: 42px;
+    }
+
+    .compound-word {
+        font-size: 38px;
+    }
+
+    .button {
+        padding: 15px 25px;
+        font-size: 18px;
+    }
+
+    .controls {
+        margin: 25px 0;
+        gap: 20px;
+    }
+
+    .scoreboard {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    .timer-container {
+        width: 80px;
+        height: 80px;
+    }
+
+    .timer {
+        font-size: 28px;
+    }
+}
+
+/* iPhone notch support */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .game-container {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+
+    #offline-notification {
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+    }
+}

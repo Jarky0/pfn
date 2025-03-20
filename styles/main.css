@@ -1,0 +1,27 @@
+/**
+ * Main CSS File
+ * Importiert alle anderen CSS-Dateien
+ */
+
+/* Utilities */
+@import './utils/variables.css';
+@import './utils/animations.css';
+
+/* Basis-Styles */
+@import './base.css';
+
+/* Komponenten */
+@import './components/buttons.css';
+@import './components/scoreboard.css';
+@import './components/word-display.css';
+@import './components/game-timer.css';
+@import './components/team-setup.css';
+@import './components/statistics.css';
+
+/* Seiten */
+@import './pages/main-menu.css';
+@import './pages/game-play.css';
+@import './pages/game-over.css';
+
+/* Medienabfragen für Responsive Design */
+@import './utils/media-queries.css';
