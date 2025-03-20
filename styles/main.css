@@ -16,6 +16,7 @@
 @import './components/word-display.css';
 @import './components/game-timer.css';
 @import './components/team-setup.css';
+@import './components/statistics.css';
 
 /* Seiten */
 @import './pages/main-menu.css';

@@ -155,7 +155,6 @@ export class TeamSetup {
             teamChip.style.backgroundColor = colors[i];
 
             teamChip.innerHTML = `
-        <span class="team-chip-number">${i + 1}</span>
         <span class="team-chip-name">Team ${i + 1}</span>
       `;
 
