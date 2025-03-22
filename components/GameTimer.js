@@ -1,6 +1,6 @@
 /**
  * GameTimer Component
- * Manages the countdown timer for game rounds
+ * Manages the countdown timer for game rounds with a bar display
  */
 export class GameTimer {
     /**
@@ -18,6 +18,12 @@ export class GameTimer {
         this.onTimeEnd = onTimeEnd;
         this.timer = null;
         this.isRunning = false;
+
+        // Initialize the timer bar with full width
+        if (this.timerFill) {
+            this.timerFill.style.width = "100%";
+            console.log("Timer bar initialized with full width");
+        }
 
         // Initial update
         this.updateDisplay();
@@ -65,9 +71,15 @@ export class GameTimer {
 
         // Ensure we have a valid time
         if (newTime !== undefined) {
+            this.totalTime = Math.max(0, newTime); // Aktualisiere auch totalTime
             this.timeLeft = Math.max(0, newTime);
         } else {
             this.timeLeft = Math.max(0, this.totalTime);
+        }
+
+        // Always set the timer fill to 100% on reset
+        if (this.timerFill) {
+            this.timerFill.style.width = "100%";
         }
 
         // Update display immediately after reset
@@ -83,72 +95,44 @@ export class GameTimer {
             const timeToDisplay = Math.max(0, Math.round(this.timeLeft));
             this.timerDisplay.innerText = timeToDisplay;
 
-            // Apply warning color when time is running low
+            // Apply warning class when time is running low
             const isWarning = timeToDisplay <= 10;
-            this.timerDisplay.style.color = isWarning ? "#e74c3c" : "#2c3e50";
+
+            if (isWarning) {
+                this.timerDisplay.classList.add('timer--warning');
+            } else {
+                this.timerDisplay.classList.remove('timer--warning');
+            }
         }
 
-        // Update the timer ring visualization with safety check
+        // Update the timer bar visualization with safety check
         const percentage = Math.max(0, Math.min(1, this.timeLeft / this.totalTime));
-        this.updateTimerRing(percentage);
+        this.updateTimerBar(percentage);
     }
 
     /**
-     * Update the timer ring visualization
+     * Update the timer bar visualization
      * @param {number} percentage - The percentage of time remaining (0-1)
      */
-    updateTimerRing(percentage) {
-        if (!this.timerFill) return;
+    updateTimerBar(percentage) {
+        if (!this.timerFill) {
+            console.warn("Timer fill element not found");
+            return;
+        }
 
         // Fix for potential NaN or invalid percentage
         if (isNaN(percentage) || percentage < 0) percentage = 0;
         if (percentage > 1) percentage = 1;
 
-        const degrees = Math.round(percentage * 360);
+        // Explicitly set width based on percentage
+        this.timerFill.style.width = `${percentage * 100}%`;
 
-        // Color transition from blue to red as time decreases
-        const startColorR = 52,
-            startColorG = 152,
-            startColorB = 219;
-        const endColorR = 231,
-            endColorG = 76,
-            endColorB = 60;
-
-        const r = Math.round(startColorR + (endColorR - startColorR) * (1 - percentage));
-        const g = Math.round(startColorG + (endColorG - startColorG) * (1 - percentage));
-        const b = Math.round(startColorB + (endColorB - startColorB) * (1 - percentage));
-
-        const color = `rgb(${r}, ${g}, ${b})`;
-
-        try {
-            // Modern browsers support
-            this.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
-
-            // Fallback for browsers that don't support conic-gradient
-            if (this.timerFill.style.background === '') {
-                this.useAlternativeVisualization(percentage, color);
-            }
-        } catch (e) {
-            console.error("Error updating timer ring:", e);
-            this.useAlternativeVisualization(percentage, color);
+        // Apply warning styling when under 10 seconds
+        if (this.timeLeft <= 10) {
+            this.timerFill.classList.add('timer-fill--warning');
+        } else {
+            this.timerFill.classList.remove('timer-fill--warning');
         }
-    }
-
-    /**
-     * Alternative timer visualization for browsers without conic-gradient support
-     * @param {number} percentage - The percentage of time remaining (0-1)
-     * @param {string} color - The color to use
-     */
-    useAlternativeVisualization(percentage, color) {
-        if (!this.timerFill) return;
-
-        // Create a circular progress indicator using clip-path
-        const clipPercentage = percentage * 100;
-        this.timerFill.style.background = color;
-        this.timerFill.style.clipPath = `polygon(50% 50%, 50% 0%, ${clipPercentage >= 25 ? '100% 0%' : `${50 + 50 * Math.tan(percentage * Math.PI / 2)}% 0%`}${clipPercentage >= 25 ? `, 100% ${clipPercentage >= 50 ? '100%' : `${50 * Math.tan((percentage - 0.25) * Math.PI)}%`}` : ''
-            }${clipPercentage >= 50 ? `, ${clipPercentage >= 75 ? '0%' : `${100 - 50 * Math.tan((percentage - 0.5) * Math.PI)}%`} 100%` : ''
-            }${clipPercentage >= 75 ? `, 0% ${100 - 50 * Math.tan((percentage - 0.75) * Math.PI)}%` : ''
-            })`;
     }
 
     /**

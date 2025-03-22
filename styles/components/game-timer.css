@@ -1,115 +1,78 @@
 /**
  * Game Timer Component
- * Styles für die Timer-Anzeige
+ * Styles für die Timer-Anzeige als Balken
  */
 
-/* Kompakter Timer - verwendet feste Pixel-Dimensionen für Konsistenz */
 .timer-container {
     position: relative;
-    margin: 12px auto;
-    width: 60px;
-    /* Feste Breite */
-    height: 60px;
-    /* Muss gleich Breite sein für perfekten Kreis */
+    margin: 15px auto;
+    width: 100%;
+    max-width: 400px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    /* Verhindert Verzerrung durch übergeordnete Flex-Container */
-    flex-shrink: 0;
-    flex-grow: 0;
-}
-
-/* Gemeinsame Eigenschaften für alle kreisförmigen Timer-Elemente */
-.timer-ring,
-.timer-fill,
-.timer-center {
-    position: absolute;
-    width: 60px;
-    /* Gleiche feste Breite wie Container */
-    height: 60px;
-    /* Gleiche feste Höhe wie Container */
-    border-radius: 50%;
+    gap: 10px;
+    padding: 0 15px;
     box-sizing: border-box;
-    /* Exakte Zentrierung */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Verhindert Verzerrung */
-    overflow: visible;
-}
-
-.timer-ring {
-    background: #ecf0f1;
-    z-index: 1;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15) inset;
-}
-
-.timer-fill {
-    background: conic-gradient(var(--color-secondary) 0deg, transparent 0deg);
-    transition: all 0.3s linear;
-    transform-origin: center center;
-    z-index: 2;
-    /* Überprüfen Sie exakt centeredring */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.timer-center {
-    width: 50px;
-    /* Etwas kleiner als äußerer Ring */
-    height: 50px;
-    /* Muss gleich Breite sein */
-    background-color: white;
-    z-index: 3;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Timer Text */
 .timer {
-    position: absolute;
-    z-index: 4;
     font-size: 20px;
     font-weight: bold;
     color: var(--color-primary);
-    /* Perfekte Zentrierung des Textes */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Textgestaltung */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-width: 40px;
     text-align: center;
-    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Progress Bar Container */
+.timer-bar-container {
+    flex-grow: 1;
+    height: 14px;
+    background-color: #ecf0f1;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1) inset;
+    position: relative;
+}
+
+/* Progress Bar Fill */
+.timer-fill {
     height: 100%;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-    font-family: var(--font-family-base, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+    width: 100%;
+    background-color: var(--color-secondary);
+    border-radius: 7px;
+    transition: width 0.3s linear, background-color 0.3s ease;
 }
 
-/* Timer Zustände */
+/* Timer states */
 .timer--warning {
-    color: var(--color-accent, #e74c3c) !important;
+    color: var(--color-accent) !important;
 }
 
-.timer--normal {
-    color: var(--color-primary, #2c3e50) !important;
+.timer-fill--warning {
+    background-color: var(--color-accent) !important;
 }
 
-/* Fallback für ältere Browser */
-@supports not (background: conic-gradient(#000 0deg, #000 0deg)) {
-    .timer-fill {
-        clip-path: circle(50%);
-        background-color: var(--color-secondary) !important;
+/* Timer animation for warning state */
+@keyframes timer-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
     }
 }
 
-/* Entfernt störende Outlines */
-.timer:focus,
-.timer-ring:focus,
-.timer-fill:focus,
-.timer-center:focus {
-    outline: none;
+.timer-fill--warning {
+    animation: timer-pulse 1s infinite;
+}
+
+/* Überschreiben alter Timer-Stile */
+.timer-ring,
+.timer-center {
+    display: none !important;
 }

@@ -100,7 +100,7 @@ export class ScoreBoard {
         // Reset animation
         element.style.animation = "none";
         element.offsetHeight; // Trigger reflow
-        element.style.animation = "score-pop 1s ease-out";
+        element.style.animation = "score-float-up 1s ease-out";
     }
 
     /**

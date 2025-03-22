@@ -170,82 +170,39 @@ export class UIEffects {
         // Reset animation
         element.style.animation = "none";
         element.offsetHeight; // Trigger reflow
-        element.style.animation = "score-pop 1s ease-out";
+        element.style.animation = "score-float-up 1s ease-out";
     }
 
     /**
-     * Update the timer ring visualization
+     * Update the timer bar visualization
      * @param {number} percentage - The percentage of time remaining (0-1)
      */
-    updateTimerRing(percentage) {
-        if (!this.elements.timerFill || !this.elements.timerDisplay) return;
+    updateTimerBar(percentage) {
+        if (!this.elements.timerFill) {
+            console.warn("Timer fill element not found");
+            return;
+        }
 
         // Fix for potential NaN or invalid percentage
         if (isNaN(percentage) || percentage < 0) percentage = 0;
         if (percentage > 1) percentage = 1;
 
-        const degrees = Math.round(percentage * 360);
+        // Set width based on percentage
+        this.elements.timerFill.style.width = `${percentage * 100}%`;
 
-        // Color transition from blue to red as time decreases
-        const startColorR = 52,
-            startColorG = 152,
-            startColorB = 219;
-        const endColorR = 231,
-            endColorG = 76,
-            endColorB = 60;
+        // Apply warning styling when under 10 seconds
+        const isWarning = percentage <= 0.17; // etwa 10 Sekunden bei 60 Sekunden Gesamtzeit
 
-        const r = Math.round(
-            startColorR + (endColorR - startColorR) * (1 - percentage)
-        );
-        const g = Math.round(
-            startColorG + (endColorG - startColorG) * (1 - percentage)
-        );
-        const b = Math.round(
-            startColorB + (endColorB - startColorB) * (1 - percentage)
-        );
-
-        const color = `rgb(${r}, ${g}, ${b})`;
-
-        try {
-            // Modern browsers support
-            this.elements.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
-
-            // Fallback for browsers that don't support conic-gradient
-            if (this.elements.timerFill.style.background === '') {
-                this.useAlternativeTimerVisualization(percentage, color);
-            }
-        } catch (e) {
-            console.error("Error updating timer ring:", e);
-            this.useAlternativeTimerVisualization(percentage, color);
-        }
-
-        // Change timer text color when time is running out
-        if (this.elements.timerDisplay) {
-            this.elements.timerDisplay.style.color = percentage <= 0.17 ? "#e74c3c" : "#2c3e50";
-
-            // Add/remove warning class
-            if (percentage <= 0.17) {
+        if (isWarning) {
+            this.elements.timerFill.classList.add('timer-fill--warning');
+            if (this.elements.timerDisplay) {
                 this.elements.timerDisplay.classList.add('timer--warning');
-            } else {
+            }
+        } else {
+            this.elements.timerFill.classList.remove('timer-fill--warning');
+            if (this.elements.timerDisplay) {
                 this.elements.timerDisplay.classList.remove('timer--warning');
             }
         }
-    }
-
-    /**
-     * Alternative timer visualization for browsers without conic-gradient support
-     * @param {number} percentage - The percentage of time remaining (0-1)
-     * @param {string} color - The color to use
-     */
-    useAlternativeTimerVisualization(percentage, color) {
-        if (!this.elements.timerFill) return;
-
-        // Create a circular progress indicator using clip-path
-        const clipPercentage = percentage * 100;
-        this.elements.timerFill.style.background = color;
-        this.elements.timerFill.style.clipPath = `polygon(50% 50%, 50% 0%, ${clipPercentage >= 25 ? '100% 0%' : `${50 + 50 * Math.tan(percentage * Math.PI / 2)}% 0%`}${clipPercentage >= 25 ? `, 100% ${clipPercentage >= 50 ? '100%' : `${50 * Math.tan((percentage - 0.25) * Math.PI)}%`}` : ''
-            }${clipPercentage >= 50 ? `, ${clipPercentage >= 75 ? '0%' : `${100 - 50 * Math.tan((percentage - 0.5) * Math.PI)}%`} 100%` : ''
-            }${clipPercentage >= 75 ? `, 0% ${100 - 50 * Math.tan((percentage - 0.75) * Math.PI)}%` : ''
-            })`;
     }
 }
