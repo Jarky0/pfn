@@ -29,8 +29,13 @@ export class GameTimer {
     start() {
         if (this.isRunning) return;
 
-        clearInterval(this.timer);
+        // Clear any existing interval to prevent duplicates
+        this.stop();
+
         this.isRunning = true;
+
+        // Initial update to ensure display is correct
+        this.updateDisplay();
 
         this.timer = setInterval(() => {
             this.timeLeft--;
@@ -57,7 +62,15 @@ export class GameTimer {
      */
     reset(newTime) {
         this.stop();
-        this.timeLeft = newTime !== undefined ? newTime : this.totalTime;
+
+        // Ensure we have a valid time
+        if (newTime !== undefined) {
+            this.timeLeft = Math.max(0, newTime);
+        } else {
+            this.timeLeft = Math.max(0, this.totalTime);
+        }
+
+        // Update display immediately after reset
         this.updateDisplay();
     }
 
@@ -66,11 +79,18 @@ export class GameTimer {
      */
     updateDisplay() {
         if (this.timerDisplay) {
-            this.timerDisplay.innerText = this.timeLeft;
-            this.timerDisplay.style.color = this.timeLeft <= 10 ? "#e74c3c" : "#2c3e50";
+            // Ensure we display a valid number
+            const timeToDisplay = Math.max(0, Math.round(this.timeLeft));
+            this.timerDisplay.innerText = timeToDisplay;
+
+            // Apply warning color when time is running low
+            const isWarning = timeToDisplay <= 10;
+            this.timerDisplay.style.color = isWarning ? "#e74c3c" : "#2c3e50";
         }
 
-        this.updateTimerRing(this.timeLeft / this.totalTime);
+        // Update the timer ring visualization with safety check
+        const percentage = Math.max(0, Math.min(1, this.timeLeft / this.totalTime));
+        this.updateTimerRing(percentage);
     }
 
     /**
@@ -80,7 +100,11 @@ export class GameTimer {
     updateTimerRing(percentage) {
         if (!this.timerFill) return;
 
-        const degrees = percentage * 360;
+        // Fix for potential NaN or invalid percentage
+        if (isNaN(percentage) || percentage < 0) percentage = 0;
+        if (percentage > 1) percentage = 1;
+
+        const degrees = Math.round(percentage * 360);
 
         // Color transition from blue to red as time decreases
         const startColorR = 52,
@@ -96,7 +120,35 @@ export class GameTimer {
 
         const color = `rgb(${r}, ${g}, ${b})`;
 
-        this.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
+        try {
+            // Modern browsers support
+            this.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
+
+            // Fallback for browsers that don't support conic-gradient
+            if (this.timerFill.style.background === '') {
+                this.useAlternativeVisualization(percentage, color);
+            }
+        } catch (e) {
+            console.error("Error updating timer ring:", e);
+            this.useAlternativeVisualization(percentage, color);
+        }
+    }
+
+    /**
+     * Alternative timer visualization for browsers without conic-gradient support
+     * @param {number} percentage - The percentage of time remaining (0-1)
+     * @param {string} color - The color to use
+     */
+    useAlternativeVisualization(percentage, color) {
+        if (!this.timerFill) return;
+
+        // Create a circular progress indicator using clip-path
+        const clipPercentage = percentage * 100;
+        this.timerFill.style.background = color;
+        this.timerFill.style.clipPath = `polygon(50% 50%, 50% 0%, ${clipPercentage >= 25 ? '100% 0%' : `${50 + 50 * Math.tan(percentage * Math.PI / 2)}% 0%`}${clipPercentage >= 25 ? `, 100% ${clipPercentage >= 50 ? '100%' : `${50 * Math.tan((percentage - 0.25) * Math.PI)}%`}` : ''
+            }${clipPercentage >= 50 ? `, ${clipPercentage >= 75 ? '0%' : `${100 - 50 * Math.tan((percentage - 0.5) * Math.PI)}%`} 100%` : ''
+            }${clipPercentage >= 75 ? `, 0% ${100 - 50 * Math.tan((percentage - 0.75) * Math.PI)}%` : ''
+            })`;
     }
 
     /**

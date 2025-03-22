@@ -3,67 +3,113 @@
  * Styles für die Timer-Anzeige
  */
 
-/* Kompakter Timer */
+/* Kompakter Timer - verwendet feste Pixel-Dimensionen für Konsistenz */
 .timer-container {
     position: relative;
-    margin: 3px auto;
-    width: 48px;
-    height: 48px;
-}
-
-.timer,
-.timer-ring,
-.timer-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: var(--radius-round);
-}
-
-.timer {
+    margin: 12px auto;
+    width: 60px;
+    /* Feste Breite */
+    height: 60px;
+    /* Muss gleich Breite sein für perfekten Kreis */
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--color-primary);
-    z-index: 2;
+    justify-content: center;
+    /* Verhindert Verzerrung durch übergeordnete Flex-Container */
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+/* Gemeinsame Eigenschaften für alle kreisförmigen Timer-Elemente */
+.timer-ring,
+.timer-fill,
+.timer-center {
+    position: absolute;
+    width: 60px;
+    /* Gleiche feste Breite wie Container */
+    height: 60px;
+    /* Gleiche feste Höhe wie Container */
+    border-radius: 50%;
+    box-sizing: border-box;
+    /* Exakte Zentrierung */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Verhindert Verzerrung */
+    overflow: visible;
 }
 
 .timer-ring {
     background: #ecf0f1;
     z-index: 1;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.15) inset;
-    overflow: hidden;
 }
 
 .timer-fill {
-    background: conic-gradient(var(--color-secondary) 0%, transparent 0%);
-    transition: background 0.3s linear;
+    background: conic-gradient(var(--color-secondary) 0deg, transparent 0deg);
+    transition: all 0.3s linear;
+    transform-origin: center center;
+    z-index: 2;
+    /* Überprüfen Sie exakt centeredring */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .timer-center {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    width: 50px;
+    /* Etwas kleiner als äußerer Ring */
+    height: 50px;
+    /* Muss gleich Breite sein */
     background-color: white;
-    border-radius: var(--radius-round);
-    z-index: 2;
+    z-index: 3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Timer Text */
+.timer {
+    position: absolute;
+    z-index: 4;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-primary);
+    /* Perfekte Zentrierung des Textes */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Textgestaltung */
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-family: var(--font-family-base, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
 }
 
 /* Timer Zustände */
 .timer--warning {
-    color: var(--color-accent);
+    color: var(--color-accent, #e74c3c) !important;
 }
 
 .timer--normal {
-    color: var(--color-primary);
+    color: var(--color-primary, #2c3e50) !important;
+}
+
+/* Fallback für ältere Browser */
+@supports not (background: conic-gradient(#000 0deg, #000 0deg)) {
+    .timer-fill {
+        clip-path: circle(50%);
+        background-color: var(--color-secondary) !important;
+    }
+}
+
+/* Entfernt störende Outlines */
+.timer:focus,
+.timer-ring:focus,
+.timer-fill:focus,
+.timer-center:focus {
+    outline: none;
 }

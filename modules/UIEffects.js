@@ -180,7 +180,11 @@ export class UIEffects {
     updateTimerRing(percentage) {
         if (!this.elements.timerFill || !this.elements.timerDisplay) return;
 
-        const degrees = percentage * 360;
+        // Fix for potential NaN or invalid percentage
+        if (isNaN(percentage) || percentage < 0) percentage = 0;
+        if (percentage > 1) percentage = 1;
+
+        const degrees = Math.round(percentage * 360);
 
         // Color transition from blue to red as time decreases
         const startColorR = 52,
@@ -202,9 +206,46 @@ export class UIEffects {
 
         const color = `rgb(${r}, ${g}, ${b})`;
 
-        this.elements.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
+        try {
+            // Modern browsers support
+            this.elements.timerFill.style.background = `conic-gradient(${color} 0deg, ${color} ${degrees}deg, transparent ${degrees}deg, transparent 360deg)`;
+
+            // Fallback for browsers that don't support conic-gradient
+            if (this.elements.timerFill.style.background === '') {
+                this.useAlternativeTimerVisualization(percentage, color);
+            }
+        } catch (e) {
+            console.error("Error updating timer ring:", e);
+            this.useAlternativeTimerVisualization(percentage, color);
+        }
 
         // Change timer text color when time is running out
-        this.elements.timerDisplay.style.color = percentage <= 0.17 ? "#e74c3c" : "#2c3e50";
+        if (this.elements.timerDisplay) {
+            this.elements.timerDisplay.style.color = percentage <= 0.17 ? "#e74c3c" : "#2c3e50";
+
+            // Add/remove warning class
+            if (percentage <= 0.17) {
+                this.elements.timerDisplay.classList.add('timer--warning');
+            } else {
+                this.elements.timerDisplay.classList.remove('timer--warning');
+            }
+        }
+    }
+
+    /**
+     * Alternative timer visualization for browsers without conic-gradient support
+     * @param {number} percentage - The percentage of time remaining (0-1)
+     * @param {string} color - The color to use
+     */
+    useAlternativeTimerVisualization(percentage, color) {
+        if (!this.elements.timerFill) return;
+
+        // Create a circular progress indicator using clip-path
+        const clipPercentage = percentage * 100;
+        this.elements.timerFill.style.background = color;
+        this.elements.timerFill.style.clipPath = `polygon(50% 50%, 50% 0%, ${clipPercentage >= 25 ? '100% 0%' : `${50 + 50 * Math.tan(percentage * Math.PI / 2)}% 0%`}${clipPercentage >= 25 ? `, 100% ${clipPercentage >= 50 ? '100%' : `${50 * Math.tan((percentage - 0.25) * Math.PI)}%`}` : ''
+            }${clipPercentage >= 50 ? `, ${clipPercentage >= 75 ? '0%' : `${100 - 50 * Math.tan((percentage - 0.5) * Math.PI)}%`} 100%` : ''
+            }${clipPercentage >= 75 ? `, 0% ${100 - 50 * Math.tan((percentage - 0.75) * Math.PI)}%` : ''
+            })`;
     }
 }
