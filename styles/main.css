@@ -1,16 +1,16 @@
 /**
  * Main CSS File
- * Importiert alle anderen CSS-Dateien
+ * Imports all other CSS files
  */
 
-/* Utilities */
+/* Utilities - fundamental building blocks */
 @import './utils/variables.css';
 @import './utils/animations.css';
 
-/* Basis-Styles */
+/* Base styles - foundational elements */
 @import './base.css';
 
-/* Komponenten */
+/* Components - reusable UI elements */
 @import './components/buttons.css';
 @import './components/scoreboard.css';
 @import './components/word-display.css';
@@ -18,10 +18,10 @@
 @import './components/team-setup.css';
 @import './components/statistics.css';
 
-/* Seiten */
+/* Pages - page-specific styles */
 @import './pages/main-menu.css';
 @import './pages/game-play.css';
 @import './pages/game-over.css';
 
-/* Medienabfragen für Responsive Design */
+/* Responsive design - last to override previous styles as needed */
 @import './utils/media-queries.css';

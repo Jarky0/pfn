@@ -1,17 +1,17 @@
 /**
  * Team Setup Component
- * Styles für das Team-Setup im Hauptmenü
+ * Styles for the team setup in the main menu
  */
 
-/* Team-Setup-Bereich */
+/* Team setup area */
 .teams-section {
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-md);
     width: 100%;
 }
 
 .teams-section__heading {
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-sm);
     text-align: center;
 }
 
@@ -21,7 +21,7 @@
     font-weight: normal;
 }
 
-/* Team-Chips-Container */
+/* Team chips container */
 .teams__container {
     display: flex;
     flex-wrap: wrap;
@@ -30,18 +30,18 @@
     justify-content: center;
 }
 
-/* Team-Chip Styling */
+/* Team chip styling */
 .team-chip {
     display: flex;
     align-items: center;
-    padding: 6px 12px;
+    padding: var(--spacing-xs) var(--spacing-md);
     border-radius: 20px;
-    color: white;
+    color: var(--color-text-light);
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     user-select: none;
-    margin: 4px;
+    margin: var(--spacing-xs);
     min-width: 65px;
     font-size: var(--font-size-sm);
     text-align: center;
@@ -51,14 +51,14 @@
     transition: all var(--transition-fast);
 }
 
-/* Spezielle Behandlung für hellere Farben */
+/* Special treatment for lighter colors */
 .team-chip[style*="42d4f4"],
 .team-chip[style*="f3c300"] {
-    color: #333333;
+    color: var(--color-text);
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-/* Team-Chip Interaktivität */
+/* Team chip interactivity */
 .team-chip:hover,
 .team-chip:active {
     transform: translateY(-2px);
@@ -72,15 +72,15 @@
 
 .team-chip__number {
     font-size: 0.85em;
-    margin-right: 5px;
+    margin-right: var(--spacing-xs);
     opacity: 0.8;
 }
 
-/* Team-Buttons (Hinzufügen/Entfernen) */
+/* Team buttons (Add/Remove) */
 .team-buttons {
     display: flex;
     gap: var(--spacing-sm);
     margin: var(--spacing-sm) 0;
     justify-content: center;
-    margin-bottom: 5px;
+    margin-bottom: var(--spacing-xs);
 }

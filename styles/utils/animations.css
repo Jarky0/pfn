@@ -1,9 +1,9 @@
 /**
  * Animations
- * Zentrale Definition für alle Animationen in der App
+ * Central definition for all animations in the app
  */
 
-/* Fade-In Effekt */
+/* Fade-In Effect */
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -34,7 +34,7 @@
     }
 }
 
-/* Pulse Animation (für Game Over und andere Hervorhebungen) */
+/* Pulse Animation (for Game Over and other highlights) */
 @keyframes pulse {
 
     0%,
@@ -60,7 +60,7 @@
     }
 }
 
-/* Slide Up Animation (für Benachrichtigungen) */
+/* Slide Up Animation (for notifications) */
 @keyframes slide-up {
     from {
         transform: translateY(100%);
@@ -71,7 +71,7 @@
     }
 }
 
-/* Fade In Animation (für Text) */
+/* Fade In Animation (for text) */
 @keyframes fade-in-text {
     from {
         opacity: 0;
@@ -84,7 +84,7 @@
     }
 }
 
-/* Verwendbare Animations-Klassen */
+/* Animation utility classes */
 .animate-fade-in {
     animation: fade-in var(--transition-normal) forwards;
 }

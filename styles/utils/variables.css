@@ -1,89 +1,144 @@
 /**
  * CSS Variables
  * Zentrale Farbdefinitionen und Design-Tokens für die App
+ * 
+ * Diese Datei dient als zentraler Konfigurationspunkt für Stiländerungen.
+ * Änderungen hier wirken sich auf die gesamte Anwendung aus.
  */
 
 :root {
-    /* Primäre Farbpalette */
+    /* ===== FARBEN ===== */
+    /* Primäre Farbpalette - Hauptfarben der Anwendung */
     --color-primary: #2c3e50;
+    /* Dunkelblau, Hauptfarbe */
     --color-secondary: #3498db;
+    /* Hellblau, Akzentfarbe */
     --color-accent: #e74c3c;
+    /* Rot, für Warnungen/Aktionen */
     --color-success: #27ae60;
+    /* Grün, für Erfolg/positive Aktionen */
     --color-warning: #f39c12;
+    /* Orange, für Hinweise */
+    --color-disabled: #95a5a6;
+    /* Grau, für deaktivierte Elemente */
 
-    /* Semantische Farbzuweisung */
+    /* Text und Hintergrund */
     --color-background: var(--color-primary);
+    /* App-Hintergrundfarbe */
     --color-text: #333333;
+    /* Haupttextfarbe */
     --color-text-light: #f8f9fa;
+    /* Textfarbe auf dunklem Hintergrund */
     --color-text-muted: #777777;
+    /* Gedämpfte Textfarbe für sekundäre Inhalte */
     --color-border: #dddddd;
+    /* Standardrandfarbe */
 
     /* Hintergrundfarben */
     --color-bg-light: #f8f8f8;
+    /* Heller Hintergrund für Elemente */
     --color-bg-lighter: #f9f9f9;
+    /* Hellerer Hintergrund für Abwechslung */
     --color-bg-lightest: #ecf0f1;
+    /* Hellster Hintergrund für besondere Elemente */
+    --color-card-background: #ffffff;
+    /* Hintergrund für Karten */
 
-    /* Team-Farben */
+    /* Spezifische Komponentenfarben */
+    /* Teams */
     --color-team-active: var(--color-success);
     --color-team-default: var(--color-secondary);
 
-    /* Button-Farben */
+    /* Buttons */
     --color-button-primary: var(--color-secondary);
     --color-button-success: var(--color-success);
     --color-button-danger: var(--color-accent);
-    --color-button-disabled: #95a5a6;
+    --color-button-disabled: var(--color-disabled);
 
-    /* Card-Farben */
-    --color-card-background: #ffffff;
+    /* Cards */
     --color-card-back: var(--color-accent);
 
-    /* Unified shadows */
+    /* ===== SCHATTEN ===== */
     --shadow-normal: 0 4px 10px rgba(0, 0, 0, 0.15);
+    /* Standardschatten für Container */
     --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.15);
+    /* Schatten für Buttons */
     --shadow-primary: 0 2px 0 #1c6ea4;
+    /* Schatten für primäre Buttons */
     --shadow-success: 0 2px 0 #1e8449;
+    /* Schatten für Success-Buttons */
     --shadow-accent: 0 2px 0 #c0392b;
+    /* Schatten für Accent-Buttons */
     --shadow-button-hover: 0 3px 6px rgba(0, 0, 0, 0.2);
+    /* Hover-Schatten für Buttons */
 
-    /* Border radiuses */
+    /* ===== ABRUNDUNGEN ===== */
     --radius-small: 5px;
+    /* Kleine Abrundung */
     --radius-medium: 8px;
+    /* Mittlere Abrundung */
     --radius-large: 12px;
+    /* Große Abrundung */
     --radius-card: 15px;
+    /* Abrundung für Karten */
     --radius-round: 50%;
+    /* Komplett rund (für Kreise) */
     --radius-button: var(--radius-medium);
+    /* Abrundung für Buttons */
 
-    /* Spacing */
+    /* ===== ABSTÄNDE ===== */
     --spacing-xs: 4px;
+    /* Extra klein */
     --spacing-sm: 8px;
+    /* Klein */
     --spacing-md: 12px;
+    /* Mittel */
     --spacing-lg: 16px;
+    /* Groß */
     --spacing-xl: 24px;
+    /* Extra groß */
 
-    /* Typography */
+    /* ===== TYPOGRAFIE ===== */
+    /* Schriftfamilien */
     --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-family-heading: -apple-system, BlinkMacSystemFont, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+
+    /* Schriftgrößen */
     --font-size-xs: 0.75rem;
+    /* 12px bei 16px Basis */
     --font-size-sm: 0.875rem;
+    /* 14px bei 16px Basis */
     --font-size-md: 1rem;
+    /* 16px bei 16px Basis */
     --font-size-lg: 1.25rem;
+    /* 20px bei 16px Basis */
     --font-size-xl: 1.5rem;
+    /* 24px bei 16px Basis */
     --font-size-xxl: 2rem;
+    /* 32px bei 16px Basis */
 
-    /* Transition timing */
+    /* ===== ANIMATIONEN ===== */
     --transition-fast: 0.2s ease;
+    /* Schnelle Übergänge (Hover) */
     --transition-normal: 0.3s ease;
+    /* Normale Übergänge */
     --transition-slow: 0.5s ease;
+    /* Langsame Übergänge */
 
-    /* Safe Area insets for notched devices */
+    /* ===== LAYOUT ===== */
+    /* Safe Area für Geräte mit Notch */
     --safe-area-inset-top: env(safe-area-inset-top, 0px);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
     --safe-area-inset-right: env(safe-area-inset-right, 0px);
 
-    /* Z-index Ebenen */
+    /* Z-Index Ebenen für Stapelreihenfolge */
     --z-index-base: 1;
+    /* Basisebene */
     --z-index-overlay: 10;
+    /* Overlay-Ebene (über der Basis) */
     --z-index-modal: 100;
+    /* Modal-Ebene (über Overlays) */
     --z-index-notification: 1000;
+    /* Benachrichtigungen (höchste Ebene) */
 }

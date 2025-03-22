@@ -1,16 +1,16 @@
 /**
  * Game Play Page
- * Styles für den aktiven Spielbildschirm
+ * Styles for the active game screen
  */
 
-/* Spezifische Spielbildschirm-Styles */
+/* Game play screen styles */
 .game-play__screen {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
 }
 
-/* Team-Anzeige */
+/* Team display */
 .current-team {
     font-weight: bold;
     color: var(--color-primary);
@@ -22,7 +22,7 @@
     margin: 0 auto;
 }
 
-/* Button-Gruppen im Spiel */
+/* Button groups in game */
 .game-play__controls {
     display: flex;
     flex-direction: column;
@@ -44,26 +44,26 @@
     margin-top: var(--spacing-md);
 }
 
-/* Versteckte Elemente während des Spiels */
+/* Hidden elements during gameplay */
 .game-play__hidden {
     display: none;
 }
 
-/* Hervorgehobene Elemente im Spiel */
+/* Highlighted elements in game */
 .game-play__highlighted {
     background-color: rgba(52, 152, 219, 0.1);
     border-radius: var(--radius-medium);
     padding: var(--spacing-sm);
 }
 
-/* Runden-Anzeigeelemente */
+/* Round display elements */
 .game-play__round-info {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin-bottom: var(--spacing-xs);
 }
 
-/* Aktuelle Runde-Hervorhebung */
+/* Current round highlight */
 .game-play__current-round {
     font-weight: bold;
     color: var(--color-secondary);

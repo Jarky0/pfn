@@ -1,9 +1,9 @@
 /**
  * Base Styles
- * Grundlegende Stile für die gesamte App
+ * Fundamental styles for the entire app
  */
 
-/* Reset und Basis-Stile */
+/* Reset and base styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,7 +12,7 @@
     touch-action: manipulation;
 }
 
-/* Body-Grundstil */
+/* Body base style */
 body {
     -webkit-user-select: none;
     user-select: none;
@@ -20,7 +20,10 @@ body {
     text-align: center;
     max-width: 100%;
     margin: 0 auto;
-    padding: calc(5px + var(--safe-area-inset-top)) calc(8px + var(--safe-area-inset-right)) calc(5px + var(--safe-area-inset-bottom)) calc(8px + var(--safe-area-inset-left));
+    padding: calc(var(--spacing-xs) + var(--safe-area-inset-top)) 
+             calc(var(--spacing-sm) + var(--safe-area-inset-right)) 
+             calc(var(--spacing-xs) + var(--safe-area-inset-bottom)) 
+             calc(var(--spacing-sm) + var(--safe-area-inset-left));
     background-color: var(--color-background);
     color: var(--color-text);
     position: relative;
@@ -33,7 +36,7 @@ body {
     line-height: 1.4;
 }
 
-/* Emoji-Hintergrund */
+/* Emoji background pattern */
 body::after {
     content: "";
     position: fixed;
@@ -48,12 +51,12 @@ body::after {
     pointer-events: none;
 }
 
-/* Vereinfachte Typografie */
+/* Simplified typography */
 h1,
 h2,
 h3 {
     font-weight: 600;
-    margin: 4px 0;
+    margin: var(--spacing-xs) 0;
 }
 
 h1 {
@@ -77,17 +80,17 @@ h3 {
 
 p {
     font-size: var(--font-size-sm);
-    margin: 4px 0;
+    margin: var(--spacing-xs) 0;
 }
 
-/* Spielcontainer */
+/* Game container */
 .game-container {
     background-color: rgba(255, 255, 255, 0.97);
     border-radius: var(--radius-large);
     padding: var(--spacing-md);
     box-shadow: var(--shadow-normal);
-    margin-bottom: 6px;
-    border: 1px solid #34495e;
+    margin-bottom: var(--spacing-xs);
+    border: 1px solid var(--color-primary);
     overflow-y: auto;
     flex: 1;
     display: flex;
@@ -96,21 +99,21 @@ p {
     max-height: calc(100vh - 50px - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
 }
 
-/* Utility-Klassen */
+/* Utility classes */
 .hide {
     display: none !important;
 }
 
-/* Titel-Stile */
+/* Title styles */
 .title {
-    color: #ffe699;
+    color: #ffe699; /* Specific color for title that stands out against the background */
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 0 -1px 1px rgba(0, 0, 0, 0.3);
     display: inline-block;
     font-weight: bold;
     letter-spacing: 0.5px;
     position: relative;
     font-size: clamp(1rem, 3.8vw, 1.7rem);
-    padding-bottom: 6px;
+    padding-bottom: var(--spacing-xs);
 }
 
 .title::after {
@@ -129,41 +132,41 @@ p {
 }
 
 .animated-text {
-    animation: fade-in-text 0.5s ease-out;
-    font-size: 15px;
+    animation: fade-in-text var(--transition-fast) ease-out;
+    font-size: var(--font-size-sm);
     font-weight: 600;
-    margin: 5px 0;
+    margin: var(--spacing-xs) 0;
     color: var(--color-primary);
 }
 
-/* Offline-Benachrichtigung */
+/* Offline notification */
 .offline-notification {
     position: fixed;
     bottom: calc(var(--safe-area-inset-bottom));
     left: 0;
     right: 0;
     background-color: rgba(231, 76, 60, 0.95);
-    color: white;
+    color: var(--color-text-light);
     text-align: center;
-    padding: 8px;
+    padding: var(--spacing-sm);
     font-weight: bold;
     z-index: var(--z-index-notification);
-    animation: slide-up 0.3s ease-out;
+    animation: slide-up var(--transition-normal) ease-out;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* NoScript-Meldung */
+/* NoScript message */
 .noscript-message {
     position: fixed;
     inset: 0;
     background-color: var(--color-accent);
-    color: white;
+    color: var(--color-text-light);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px;
+    padding: var(--spacing-lg);
     z-index: 9999;
-    font-size: 16px;
+    font-size: var(--font-size-md);
     font-weight: bold;
 }

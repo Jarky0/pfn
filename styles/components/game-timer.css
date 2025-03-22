@@ -1,78 +1,103 @@
 /**
- * Game Timer Component
- * Styles für die Timer-Anzeige als Balken
+ * Scoreboard Component
+ * Styles for the team score display
  */
 
-.timer-container {
-    position: relative;
-    margin: 15px auto;
-    width: 100%;
-    max-width: 400px;
+.scoreboard {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 15px;
-    box-sizing: border-box;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-sm) 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-/* Timer Text */
-.timer {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--color-primary);
-    min-width: 40px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-/* Progress Bar Container */
-.timer-bar-container {
-    flex-grow: 1;
-    height: 14px;
-    background-color: #ecf0f1;
-    border-radius: 7px;
-    overflow: hidden;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1) inset;
+/* Base team score style */
+.team-score {
+    flex: 1 0 calc(50% - var(--spacing-xs));
+    min-width: 80px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-button);
+    background-color: var(--color-team-default);
+    color: var(--color-text-light);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     position: relative;
+    overflow: hidden;
+    transition: background-color var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Fix height to prevent resizing */
+    height: 50px;
 }
 
-/* Progress Bar Fill */
-.timer-fill {
-    height: 100%;
-    width: 100%;
-    background-color: var(--color-secondary);
-    border-radius: 7px;
-    transition: width 0.3s linear, background-color 0.3s ease;
+/* Active team highlight */
+.team-score.active {
+    background-color: var(--color-team-active);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Timer states */
-.timer--warning {
-    color: var(--color-accent) !important;
+/* Team variants based on team count */
+.teams-3 .team-score {
+    flex: 1 0 calc(33.33% - var(--spacing-xs));
 }
 
-.timer-fill--warning {
-    background-color: var(--color-accent) !important;
+.teams-4 .team-score {
+    flex: 1 0 calc(50% - var(--spacing-xs));
 }
 
-/* Timer animation for warning state */
-@keyframes timer-pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.7;
-    }
+.teams-5 .team-score,
+.teams-6 .team-score {
+    flex: 1 0 calc(33.33% - var(--spacing-xs));
+    height: 45px;
+    padding: 2px var(--spacing-sm);
 }
 
-.timer-fill--warning {
-    animation: timer-pulse 1s infinite;
+.teams-7 .team-score,
+.teams-8 .team-score,
+.teams-9 .team-score,
+.teams-10 .team-score {
+    flex: 1 0 calc(25% - 6px);
+    padding: 2px;
+    font-size: 0.9em;
+    height: 42px;
 }
 
-/* Überschreiben alter Timer-Stile */
-.timer-ring,
-.timer-center {
-    display: none !important;
+/* Team name */
+.team-name-display {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Score number */
+.score-number {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+}
+
+/* Score change animation */
+.score-change {
+    position: absolute;
+    font-weight: bold;
+    opacity: 0;
+    font-size: var(--font-size-sm);
+    /* Position above the score without affecting size */
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.score-change.positive {
+    color: var(--color-success);
+    animation: score-float-up 1s ease-out;
+}
+
+.score-change.negative {
+    color: var(--color-accent);
+    animation: score-float-up 1s ease-out;
 }

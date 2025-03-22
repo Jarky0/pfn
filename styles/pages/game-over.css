@@ -1,39 +1,39 @@
 /**
  * Game Over Page
- * Styles für den Spielende-Bildschirm
+ * Styles for the game end screen
  */
 
-/* Game Over Hauptüberschrift */
+/* Game Over main heading */
 .game-over__title {
-    font-size: 22px;
+    font-size: var(--font-size-xl);
     font-weight: bold;
     color: var(--color-accent);
-    margin: 15px 0;
+    margin: var(--spacing-md) 0;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     animation: pulse 2s infinite;
 }
 
-/* Ergebnis-Container */
+/* Results container */
 .game-over__results {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f1f9fe;
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--color-bg-lighter);
     border-radius: var(--radius-medium);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Gewinner-Anzeige */
+/* Winner display */
 .game-over__winner {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-sm);
     color: var(--color-primary);
 }
 
-/* Einzelne Team-Ergebnisse */
+/* Individual team results */
 .game-over__team-score {
-    padding: 8px 10px;
-    margin: 5px 0;
+    padding: var(--spacing-sm) var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
     border-radius: var(--radius-small);
     background-color: rgba(255, 255, 255, 0.7);
     transition: all var(--transition-fast);
@@ -44,17 +44,17 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Sieger-Team hervorheben */
+/* Highlight winner team */
 .game-over__team-score--winner {
     background-color: rgba(46, 204, 113, 0.1);
     font-weight: bold;
 }
 
-/* Konfetti-Animation */
+/* Confetti animation */
 .confetti {
     width: 8px;
     height: 8px;
-    background-color: #f39c12;
+    background-color: var(--color-warning);
     position: absolute;
     left: 50%;
     top: 0;
@@ -63,22 +63,22 @@
     animation: confetti-fall 4s ease-in-out infinite;
 }
 
-/* Stats-Button-Container */
+/* Stats button container */
 .stats-button-container {
     text-align: center;
-    margin-top: 15px;
+    margin-top: var(--spacing-md);
 }
 
 .stats-button {
     background-color: var(--color-secondary);
-    color: white;
+    color: var(--color-text-light);
     border: none;
     border-radius: var(--radius-button);
-    padding: 10px 15px;
-    font-size: 0.9rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
     box-shadow: var(--shadow-primary), var(--shadow-button);
 }
 
@@ -87,10 +87,10 @@
     background-color: #2980b9;
 }
 
-/* Neues Spiel Button */
+/* New game button */
 .game-over__new-game {
-    margin-top: 20px;
-    padding: 12px 20px;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
     font-size: var(--font-size-lg);
     width: 80%;
     max-width: 250px;
